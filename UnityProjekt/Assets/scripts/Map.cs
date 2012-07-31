@@ -50,7 +50,9 @@ public class Map : MonoBehaviour {
 						tt = TileType.Mountain;
 					}else if (b >= 19 && b <= 21){ 		//Wüste
 						tt = TileType.Desert;
-					}else if (b >= 22 && b <= 29){ 		//Grassland
+					}else if (b >= 22 && b <= 23){		//Grassland
+						tt = TileType.Grassland;
+					}else if (b >= 25 && b <= 29){ 		//Grassland
 						tt = TileType.Grassland;
 					}else if (b >= 30 && b <= 34){ 		//Meer
 						tt = TileType.Sea;
