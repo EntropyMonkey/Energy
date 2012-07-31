@@ -3,6 +3,8 @@ using System.Collections;
 
 public class House : Building {
 
+
+	
 	// Use this for initialization
 	void Start () {
 	
