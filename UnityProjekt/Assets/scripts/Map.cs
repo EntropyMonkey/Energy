@@ -10,7 +10,7 @@ public class Map : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
+		this.CreateMap();
 	}
 	
 	// Update is called once per frame
@@ -60,6 +60,7 @@ public class Map : MonoBehaviour {
 				}
 				
 				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
+				buffer.name = "Tile_" + x + "_" + y;
 				Tile t = buffer.GetComponent<Tile>();
 				t.Coords = new Vector2(x, y);
 				t.Type = tt;
