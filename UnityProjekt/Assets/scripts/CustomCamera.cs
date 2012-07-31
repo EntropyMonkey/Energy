@@ -19,7 +19,6 @@ public class CustomCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-<<<<<<< HEAD
 		Vector3 direction = new Vector3(0,0,0);
 			
 		if (Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
