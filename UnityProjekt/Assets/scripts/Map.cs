@@ -75,7 +75,7 @@ public class Map : MonoBehaviour {
 		List<Tile> r = new List<Tile>();
 		for (int x = (int)c.x - environmentRadius; x < (int)c.x + environmentRadius; x++) {
 			for (int y = (int)c.y - environmentRadius; y < (int)c.y + environmentRadius; y++) {
-				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize) {
+				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize) { //check if it is not outside of the array borders
 					r.Add(this.Tiles[x, y]);
 				}
 			}
