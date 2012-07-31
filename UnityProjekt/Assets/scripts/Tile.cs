@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour
 	public Vector2 Coords
 	{
 		get;
-		private set;
+		set;
 	}
 	
 	public Vector2 Size
