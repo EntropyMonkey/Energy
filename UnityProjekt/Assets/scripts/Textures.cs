@@ -19,6 +19,8 @@ public class Textures : MonoBehaviour {
 	
 	public Texture GetTextureByType(TileType inType)
 	{
-		return this.tileTextures[inType];
+		if(this.tileTextures.ContainsKey(inType))
+			return this.tileTextures[inType];
+		return null;
 	}
 }
