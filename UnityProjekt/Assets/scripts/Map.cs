@@ -13,7 +13,12 @@ public class Map : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//t.UpdatePollution();
+		//For uncommenting in the future .... :)
+		/*for (int x = 0; x < MapSize; x++) {
+			for (int y = 0; y < MapSize; y++) {
+				this.Tiles[x, y].UpdatePollution();
+			}
+		}*/
 	}
 	
 	public void CreateMap() {
@@ -64,7 +69,16 @@ public class Map : MonoBehaviour {
 	}
 	
 	public List<Tile> GetEnvironmentTiles(Tile t) {
-	
+		Vector2 c = t.Coords;
+		List<Tile> r;
+		for (int x = c.X - this.environmentradius; x < c.X + this.environmentradius; x++) {
+			for (int y = c.Y - this.environmentradius; y < c.Y + this.environmentradius; y++) {
+				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize) {
+					r.Add(this.Tiles[x, y]);
+				}
+			}
+		}
+		return r;	
 	}
 	
 }
