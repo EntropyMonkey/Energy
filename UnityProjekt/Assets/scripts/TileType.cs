@@ -3,7 +3,8 @@ using System.Collections;
 
 public enum TileType
 {
-	Mountain = 1,
+	Empty,
+	Mountain,
 	Grassland,
 	Desert,
 	River,
