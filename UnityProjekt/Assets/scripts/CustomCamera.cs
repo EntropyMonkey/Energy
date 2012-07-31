@@ -4,6 +4,7 @@ using System.Collections;
 public class CustomCamera : MonoBehaviour 
 {
 	public const float speed = 100.0f;
+
 	//the minimum mouse positon at which no scrolling happens
 	public Vector2 minMousePositon = new Vector2();
 	//the maximum mouse positon at which no scrolling happens
@@ -18,6 +19,7 @@ public class CustomCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+<<<<<<< HEAD
 		Vector3 direction = new Vector3(0,0,0);
 			
 		if (Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
