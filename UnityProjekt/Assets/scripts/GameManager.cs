@@ -1,23 +1,23 @@
 using UnityEngine;
 using System.Collections;
 
-public class CustomCamera : MonoBehaviour 
+public class GameManager : MonoBehaviour 
 {
+	//TODO add UI
 
-	Camera camera;
+	//TODO add map
 
 	// Use this for initialization
 	void Start () 
 	{
-		
+		//TODO create UI
+
+		//TODO create map
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.DownArrow))
-		{
-			//Move();
-		}
+		//TODO update ui
 	}
 }
