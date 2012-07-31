@@ -4,6 +4,8 @@ using System.Collections;
 public class Tile : MonoBehaviour
 {
 	private TileType type;
+	private Map map;
+	
 	public TileType Type
 	{
 		get
@@ -15,7 +17,8 @@ public class Tile : MonoBehaviour
 			GameObject go = GameObject.Find("Textures");
 			Textures textures = go.GetComponent<Textures>();
 			this.type = value;
-			//set texture with this = textures.GetTextureByType(value);
+			Transform cube = transform.Find("Cube");
+			cube.renderer.material.mainTexture = textures.GetTextureByType(value);
 		}
 	}
 	
@@ -57,12 +60,24 @@ public class Tile : MonoBehaviour
 	
 	public void RemoveBuilding()
 	{
+		// this.CurrentBuilding.Clear();
+		// this.CurrentBuilding = null;
 		this.isFree = true;
 	}
 	
 	public void UpdatePollution()
 	{
-		
+		/* int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
+		 * 
+		 * for(Tile t : <map>.GetEnvironmentTiles(this))
+		 * {
+		 * 		if(t.CurrentBuilding is PollutionReducer)
+		 * 		{
+		 * 			tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
+		 * 		}
+		 * }
+		 * this.Polluition = tempPollution;
+		 */
 	}
 	
 	public void Start()
@@ -71,13 +86,7 @@ public class Tile : MonoBehaviour
 		this.Pullution = 0;
 		Vector3 size = transform.localScale;
 		this.Size = new Vector2(size.x, size.z);
+		GameObject mapObject = GameObject.Find("Map");//TODO: check if right name
+		this.map = mapObject.GetComponent<Map>();
 	}
-	
-	/*
-	 * <instantiation>
-	 * Tile t = <go>.GetComponent<Tile>();
-	 * t.Type = TileType.Mountain;
-	 * t.Coords = new Vector2(1, 1);
-	 * t.UpdatePollution();
-	 */
 }

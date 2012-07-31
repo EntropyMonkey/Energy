@@ -13,7 +13,8 @@ public class Textures : MonoBehaviour {
 		tileTextures.Add(TileType.River, this.riverTexture);
 		tileTextures.Add(TileType.Grassland, this.grassTexture);
 		tileTextures.Add(TileType.Desert, this.desertTexture);
-		tileTextures.Add(TileType.Sea, this.seaTexture);		
+		tileTextures.Add(TileType.Sea, this.seaTexture);	
+		tileTextures.Add(TileType.Empty, this.grassTexture);
 	}
 	
 	public Texture GetTextureByType(TileType inType)
