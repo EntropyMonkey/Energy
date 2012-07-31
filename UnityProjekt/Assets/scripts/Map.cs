@@ -1,8 +1,10 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class Map : MonoBehaviour {
 	public const int MapSize = 50;
+	private const int environmentRadius = 3;
 	public Tile[,] Tiles = new Tile[MapSize, MapSize];
 	public GameObject prefab;
 	
@@ -22,7 +24,7 @@ public class Map : MonoBehaviour {
 	}
 	
 	public void CreateMap() {
-		Random r = new Random();
+		System.Random r = new System.Random();
 		PerlinNoise perlinNoise = new PerlinNoise(r.Next(1,99));
 		double sizeDivisor = 1 / (double)MapSize;
 		
@@ -57,7 +59,7 @@ public class Map : MonoBehaviour {
 					}
 				}
 				
-				GameObject buffer = Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
+				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
 				Tile t = buffer.GetComponent<Tile>();
 				t.Coords = new Vector2(x, y);
 				t.Type = tt;
@@ -70,9 +72,9 @@ public class Map : MonoBehaviour {
 	
 	public List<Tile> GetEnvironmentTiles(Tile t) {
 		Vector2 c = t.Coords;
-		List<Tile> r;
-		for (int x = c.X - this.environmentradius; x < c.X + this.environmentradius; x++) {
-			for (int y = c.Y - this.environmentradius; y < c.Y + this.environmentradius; y++) {
+		List<Tile> r = new List<Tile>();
+		for (int x = (int)c.x - environmentRadius; x < (int)c.x + environmentRadius; x++) {
+			for (int y = (int)c.y - environmentRadius; y < (int)c.y + environmentRadius; y++) {
 				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize) {
 					r.Add(this.Tiles[x, y]);
 				}
