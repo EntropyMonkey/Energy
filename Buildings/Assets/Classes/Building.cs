@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
-public class Building : MonoBehaviour {
+public class Building {
 	
 	#region Eigenschaften
 	
 	protected bool isEnabled;
 	public bool IsEnabled
 	{
-		get { return isEnabled; }
-		set { isEnabled = value; }
+		get;
+		set;
 	}
+	
+	
 	
 	#endregion
 	
