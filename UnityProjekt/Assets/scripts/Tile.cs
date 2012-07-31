@@ -17,8 +17,11 @@ public class Tile : MonoBehaviour
 			GameObject go = GameObject.Find("Textures");
 			Textures textures = go.GetComponent<Textures>();
 			this.type = value;
-			Transform cube = transform.Find("Cube");
-			cube.renderer.material.mainTexture = textures.GetTextureByType(value);
+			if(textures.GetTextureByType(this.type) != null)
+			{
+				Transform cube = transform.Find("Cube");
+				cube.renderer.material.mainTexture = textures.GetTextureByType(value);
+			}
 		}
 	}
 	
