@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class Tile : MonoBehaviour
 {
 	//Type of tile
@@ -105,5 +106,10 @@ public class Tile : MonoBehaviour
 		this.Size = new Vector2(size.x, size.z);
 		GameObject mapObject = GameObject.Find("Map");
 		this.map = mapObject.GetComponent<Map>();
+	}
+	
+	public string Save()
+	{
+		
 	}
 }
