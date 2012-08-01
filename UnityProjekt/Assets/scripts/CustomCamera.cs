@@ -3,7 +3,8 @@ using System.Collections;
 
 public class CustomCamera : MonoBehaviour 
 {
-	public const float maxSpeed = 1000.0f;
+
+	public const float maxspeed = 1000.0f;
 	public const float acceleration = 250.0f;
 	public const float deceleration = 0.1f;
 
@@ -45,29 +46,29 @@ public class CustomCamera : MonoBehaviour
 		{
 		direction = new Vector3 (0,0,1);
 		}
-		else if (Input.mousePosition.x >= Screen.width - 25) 
+		else if (Input.mousePosition.x >=Screen.width -25) 
 		{
 		  	direction = new Vector3(0,0,-1);	
 		}
 		else if (Input.mousePosition.y < 25)
 		{
 		 	direction = new Vector3 (-1,0,0);
+
 		}
-		else if (Input.mousePosition.y > Screen.height - 25)
+		else if (Input.mousePosition.y >Screen.height -25)
 		{
-			direction = new Vector3(1, 0, 0);
+			direction = new Vector3(1,0,0);
 		}
-		else
+		else 
 		{
 			direction = -velocity * deceleration;
 		}
-
-
-		velocity += direction * acceleration * Time.deltaTime;
-
-		// if the camera moves too fast, clamp its speed
-		if (velocity.sqrMagnitude > maxSpeed * maxSpeed)
-			velocity = velocity.normalized * maxSpeed;
+		
+		velocity += direction *acceleration *Time.deltaTime;
+		//if the camera moves too fast, clamp its speed 
+		if (velocity.sqrMagnitude> maxspeed * maxspeed)
+			velocity =velocity.normalized * maxspeed;
+		
 
 		transform.position += velocity * Time.deltaTime;
 
