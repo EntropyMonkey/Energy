@@ -3,21 +3,22 @@ using System.Collections;
 
 public class CustomCamera : MonoBehaviour 
 {
+
 	public const float maxspeed = 1000.0f;
-	public const float acceleration = 200.0f;
+	public const float acceleration = 250.0f;
 	public const float deceleration = 0.1f;
-		
+
 	private Vector3 velocity;
-	
-	//the minimum mouse positon at which no scrolling happens
-	public Vector2 minMousePositon = new Vector2(25,25);
-	//the maximum mouse positon at which no scrolling happens
-	public Vector2 maxMousePositon = new Vector2(Screen.width - 25,Screen.height - 25);
+
+	//the minimum mouse position at which no scrolling happens
+	public Vector2 minMousePositon = new Vector2();
+	//the maximum mouse position at which no scrolling happens
+	public Vector2 maxMousePositon = new Vector2();
 	
 	// Use this for initialization
 	void Start () 
 	{
-		
+		velocity = Vector3.zero;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +44,7 @@ public class CustomCamera : MonoBehaviour
 		}
 		else if (Input.mousePosition.x < 25)
 		{
-			direction = new Vector3 (0,0,1);
+		direction = new Vector3 (0,0,1);
 		}
 		else if (Input.mousePosition.x >=Screen.width -25) 
 		{
@@ -52,6 +53,7 @@ public class CustomCamera : MonoBehaviour
 		else if (Input.mousePosition.y < 25)
 		{
 		 	direction = new Vector3 (-1,0,0);
+
 		}
 		else if (Input.mousePosition.y >Screen.height -25)
 		{
@@ -67,6 +69,7 @@ public class CustomCamera : MonoBehaviour
 		if (velocity.sqrMagnitude> maxspeed * maxspeed)
 			velocity =velocity.normalized * maxspeed;
 		
+
 		transform.position += velocity * Time.deltaTime;
 
 	}
