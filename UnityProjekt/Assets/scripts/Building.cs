@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class Building {
+
+/// <summary>
+/// A building placed by the user.
+/// </summary>
+public class Building : MonoBehaviour {
 	
 	#region Properties
 	
-	protected bool isEnabled;
 	public bool IsEnabled
 	{
 		get;
@@ -16,8 +19,10 @@ public class Building {
 	
 	#endregion
 	
-	public Building(int ID, Vector2 tile)
+	void Start()
 	{
 		
 	}
+	
+
 }
