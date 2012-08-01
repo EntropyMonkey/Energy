@@ -1,15 +1,23 @@
 using UnityEngine;
 using System.Collections;
 
-public class Building : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public class Building {
 	
+	#region Properties
+	
+	protected bool isEnabled;
+	public bool IsEnabled
+	{
+		get;
+		set;
 	}
 	
-	// Update is called once per frame
-	void Update () {
 	
+	
+	#endregion
+	
+	public Building(int ID, Vector2 tile)
+	{
+		
 	}
 }
