@@ -46,11 +46,11 @@ public class Tile : MonoBehaviour
 	}
 	
 	// Current building on this tile. Null if no building on it.
-	/*public Building CurrentBuilding
+	public Building CurrentBuilding
 	{
 		get;
 		private set;
-	}*/
+	}
 	
 	// If the tile is free from a building or not
 	public bool isFree
@@ -67,34 +67,33 @@ public class Tile : MonoBehaviour
 	}
 	
 	// Builds a building on this tile
-	/*public void Build(Building inBuilding)
+	public void Build(Building inBuilding)
 	{
 		this.CurrentBuilding = inBuilding;
 		this.isFree = false;
-	}*/
+	}
 	
 	// Removes the current building from this tile
 	public void RemoveBuilding()
 	{
 		// this.CurrentBuilding.Clear();
-		// this.CurrentBuilding = null;
+		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
 	
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		/* int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
-		 * 
-		 * for(Tile t : <map>.GetEnvironmentTiles(this))
-		 * {
-		 * 		if(t.CurrentBuilding is PollutionReducer)
-		 * 		{
-		 * 			tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
-		 * 		}
-		 * }
-		 * this.Polluition = tempPollution;
-		 */
+		int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
+	  
+	  	foreach(Tile t in this.map.GetEnvironmentTiles(this))
+	  	{
+	  		if(t.CurrentBuilding is PollutionReducer)
+	  		{
+	  			tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
+	  		}
+	  	}
+	  	this.Polluition = tempPollution;
 	}
 	
 	// Initialization
