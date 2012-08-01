@@ -5,7 +5,6 @@ using System.Collections.Generic;
 /// <summary>
 /// A building placed by the user.
 /// </summary>
-<<<<<<< HEAD
 public class Building : MonoBehaviour {
 
 
@@ -47,7 +46,7 @@ public class Building : MonoBehaviour {
 	public float updateEfficiency(){
 	}
 	public void updateOutput(){
-		return 0.0f
+        return 0.0f;
 	}
 	public void updateInput(){
 	}
