@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Building : MonoBehaviour {
 	
@@ -17,14 +18,16 @@ public class Building : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	#region Properties
 	
-		
-	}
+	protected bool isEnabled;
+	public bool IsEnabled
+	{
+		get;
+		set;
+	}	
 	
 	public void updatePollution(){
 	}
@@ -34,5 +37,12 @@ public class Building : MonoBehaviour {
 		Output = Output * Efficiency;
 	}
 	public void updateInput(){
+	}
+	
+	#endregion
+	
+	public Building(int ID, Vector2 tile)
+	{
+		
 	}
 }
