@@ -7,8 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public class Building : MonoBehaviour {
 	
-	protected Tile tileRef;
-	protected bool enabled;
+	/* protected Tile tileRef;
 	protected Dictionary<ResourceType, float> Input = 
             new Dictionary<string, float>();
 	protected Dictionary<ResourceType, float> Output = 
@@ -18,9 +17,11 @@ public class Building : MonoBehaviour {
 	protected Dictionary<ResourceType, float> CurrentOutput = 
             new Dictionary<string, float>();
 	protected List<Upgrade> Upgrades;
+	*/
 	
 	// Use this for initialization
 	void Start () {
+		
 	}
 	
 	#region Properties
@@ -30,6 +31,8 @@ public class Building : MonoBehaviour {
 		get;
 		set;
 	}	
+	
+	#endregion
 	
 	public void updatePollution(){
 	}
@@ -41,6 +44,6 @@ public class Building : MonoBehaviour {
 	public void updateInput(){
 	}
 	
-	#endregion
+	
 
 }
