@@ -39,7 +39,7 @@ public class Building : MonoBehaviour {
 	public float updateEfficiency(){
 	}
 	public void updateOutput(){
-		Output = Output * Efficiency;
+		return Output = Output * Efficiency;
 	}
 	public void updateInput(){
 	}

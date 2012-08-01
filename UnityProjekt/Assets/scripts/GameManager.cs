@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
 	//TODO add UI
 	
-	public GameObject prefabs = new GameObject[16];
+	public GameObject[] prefabs = new GameObject[16];
 	
 	//TODO add map
 
