@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// A building placed by the user.
+/// </summary>
 public class Building : MonoBehaviour {
 	
 	protected Tile tileRef;
@@ -22,7 +25,6 @@ public class Building : MonoBehaviour {
 	
 	#region Properties
 	
-	protected bool isEnabled;
 	public bool IsEnabled
 	{
 		get;
@@ -40,9 +42,5 @@ public class Building : MonoBehaviour {
 	}
 	
 	#endregion
-	
-	public Building(int ID, Vector2 tile)
-	{
-		
-	}
+
 }
