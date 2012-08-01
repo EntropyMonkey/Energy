@@ -1,0 +1,40 @@
+Klasse erstellen: 
++UpdatePollution()
+
+
++double UpdateEfficiency(buildingID)
+ standort typ
+ umgebungsgebäude von Tile array
+ 
+ bei kraftwerk nur standortwert
+
+ bei speicher standortwert
+
+ bei Häuser standortwert -+ umgebung startwert=0,5 bei geeignetem untergrund wird größer durch gruppierung
+
+ bei reduzierer standort nur bei atomar-endlager wenn keine atomkraftwerke effizienz 0
+
+
++UpdateOutput(buildingID) -> array[] energy, Pollution, Work
+ bei kraftwerk uprgrade-stufe * effizienz,  
+
+ bei speicher upgrade-stufe + effizienz,
+
+ bei häuser
+
+ bei reduzierer
+
++UpdateInput(buildingID) -> array[] energy, work, Pollution
+
+
+markus+bool TestBuilding(tile,buildingID) muss zurückgeben ob das jeweilige gebäude baubar ist
+
+markus+bool BuildBuiling(tile,buildingid)
+hier nochmal TestBuilding aufrufen
+
+
+
+timon: +bool LoadBuildings(string filepath) ist false bei fehler
+timon: +BuildingValues GetBuildingValues(ID) hier stehen output-input werte drin
+timon: +list GetBuildings() verfügbare gebäude
+
