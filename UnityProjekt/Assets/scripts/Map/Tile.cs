@@ -134,6 +134,7 @@ public class Tile : MonoBehaviour
 	public void Build(int Id)
 	{
 
+
 		Transform newBuilding = (Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
 
@@ -146,6 +147,7 @@ public class Tile : MonoBehaviour
 	public void RemoveBuilding()
 	{
 		// this.CurrentBuilding.Clear();
+		CurrentBuilding.transform.renderer.enabled = false;
 		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
