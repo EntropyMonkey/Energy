@@ -8,11 +8,6 @@ using XMLParser;
 public class GameManager : MonoBehaviour 
 {
 
-	//        return instance;
-	//    }
-
-	//}
-
 	// There are three science steps, they are managed here and can be unlocked
 	// by paying with workforce
 
