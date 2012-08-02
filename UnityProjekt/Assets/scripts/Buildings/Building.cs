@@ -85,8 +85,8 @@ public class Building : MonoBehaviour
 		float acttime = gameManager.InGameTime; //In Minutes
 
         ufreturn = updateEfficiency(daniX, daniY);
-        daytime = -0.5 * System.Math.Cos (System.Math.PI / 720(acttime - 120))
-			+ 1 + System.Math.Sin (0.01 * acttime);
+        daytime = (float)(-0.5 * System.Math.Cos (System.Math.PI / 720*(acttime - 120))
+			+ 1 + System.Math.Sin (0.01 * acttime));
 
         flEnergy = Output[ResourceType.Energy] * ufreturn[0];
         flEnergy = flEnergy * daytime;
