@@ -102,12 +102,13 @@ public class Tile : MonoBehaviour
 	
 	private string getBuildingJson()
 	{
-		string building = "{";
-		building += "type:" + this.CurrentBuilding.ID + "," + // TODO: Check for id
-			"upgrades:[" +
-				this.getUpgradesString() +
-			"]}";
-		return building;
+	//	string building = "{";
+	//	building += "type:" + this.CurrentBuilding.ID + "," + // TODO: Check for id
+	//		"upgrades:[" +
+	//			this.getUpgradesString() +
+	//		"]}";
+	//	return building;
+		return "";
 	}
 	
 	private void Update()
@@ -195,9 +196,9 @@ public class Tile : MonoBehaviour
 				Debug.Log(e.Message);
 			}
 			json = json.Substring(json.IndexOf("[") + 1, json.Length - 1);
-			foreach(string upgrade in json.Split(","))
+			foreach(string upgrade in json.Split(','))
 			{
-				string upgradeSplit = upgrade.Split(":");
+				string[] upgradeSplit = upgrade.Split(':');
 				string upgradeType = upgradeSplit[0];
 				try
 				{
@@ -216,7 +217,7 @@ public class Tile : MonoBehaviour
 	private Vector2 StringToVector2(string json)
 	{
 		json = json.Replace("[", "").Replace("]","");
-		string[] pos = json.Split(",");
+		string[] pos = json.Split(',');
 		try
 		{
 			int x = int.Parse(pos[0]);
@@ -227,6 +228,6 @@ public class Tile : MonoBehaviour
 		{
 			Debug.Log(e.Message);
 		}
-		return null;
+		return Vector2.zero;
 	}
 }
