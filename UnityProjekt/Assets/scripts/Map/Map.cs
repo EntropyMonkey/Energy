@@ -29,9 +29,27 @@ public class Map : MonoBehaviour {
 	}
 	
 	
-	public void LoadMap() {
-		// split("},");
-		
+	public void LoadMap(string fileName) {
+		try{
+			fileReader = new StreamReader(fileName);
+			string mapStr = fileReader.ReadToEnd();
+			fileReader.Close();
+			List<string> mapList = mapStr.Split("},");
+			
+			//TODO: Clear Map if Tiles already exist
+			
+			foreach(string s in mapList){
+				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+				Tile t = buffer.GetComponent<Tile>();
+				t.Load(s);
+				buffer.name = "Tile_" + t.Coords.x + "_" + t.Coords.y;
+				buffer.transform.position = new Vector3(t.Coords.x, 0, t.Coords.y);
+				this.Tiles[t.Coords.x, t.Coords.y] = t;
+			}
+			
+		}catch(Exception e){
+			Debug.Log("Map Load failed!");	
+		}
 	}
 	
 	public void SaveMap() {
@@ -139,15 +157,19 @@ public class Map : MonoBehaviour {
 		{
 			for(int x = 0; x < MapSize; x++)
 			{
-				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
-				buffer.name = "Tile_" + x + "_" + y;
-				Tile t = buffer.GetComponent<Tile>();
-				t.Coords = new Vector2(x, y);
-				t.Type = tmpTileArr[x, y];
-				this.Tiles[x, y] = t;
+				this.AddTileToGame(x, y, tmpTileArr[x, y]);
 			}
 		}
 		
+	}
+	
+	private void AddTileToGame(int x, int y, TileType tt) {
+		GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
+		buffer.name = "Tile_" + x + "_" + y;
+		Tile t = buffer.GetComponent<Tile>();
+		t.Coords = new Vector2(x, y);
+		t.Type = tt;
+		this.Tiles[x, y] = t;
 	}
 	
 	
