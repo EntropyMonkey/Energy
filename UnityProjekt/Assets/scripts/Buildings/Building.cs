@@ -74,12 +74,15 @@ public class Building : MonoBehaviour
 	}
 	public void updateOutput(int daniX, int daniY)
 	{
+        float[] ufreturn;
         float flEnergy;
         float flWork;
         float flPollution;
 
-        flEnergy = Output[ResourceType.Energy] * UpdateEfficiency(daniX, daniY);
-        flWork = Output[ResourceType.Work] * UpdateEfficiency(daniX, daniY);
+        ufreturn = UpdateEfficiency(daniX, daniY);
+
+        flEnergy = Output[ResourceType.Energy] * ufreturn[0];
+        flWork = Output[ResourceType.Work] * ufreturn[1];
         flPollution =Output[ResourceType.Pollution];
         
         
