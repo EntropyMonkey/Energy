@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 
 public class Tile : MonoBehaviour
@@ -69,7 +70,7 @@ public class Tile : MonoBehaviour
 	// Builds a building on this tile
 	public void Build(int ID)
 	{
-		GameObject newBuilding = Instantiate(GameObject.Find("Main Camera").GetComponent<GameManager>().prefabs[ID]);
+		GameObject newBuilding = Instantiate(GameObject.Find("Main Camera").GetComponent<GameManager>().prefabs[ID]) as GameObject;
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
 	}
@@ -119,8 +120,9 @@ public class Tile : MonoBehaviour
 			"currentBuilding:" +
 				(this.CurrentBuilding == null ? "null" : this.getBuildingJson()) +				
 			"}";
+		return json;
 	}
-	
+
 	private string getBuildingJson()
 	{
 		string building = "{";
@@ -128,6 +130,7 @@ public class Tile : MonoBehaviour
 			"updates:[" +
 				this.getUpgradesString() +
 			"]}";
+		return building;
 	}
 	
 	private string getUpgradesString()

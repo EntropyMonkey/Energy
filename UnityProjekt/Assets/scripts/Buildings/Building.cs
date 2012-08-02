@@ -18,7 +18,7 @@ public class Building : MonoBehaviour
     protected Dictionary<ResourceType, float> CurrentInput;
     protected Dictionary<ResourceType, float> CurrentOutput;
      
-	protected List<Upgrade> Upgrades;
+	public List<Upgrade> Upgrades;
 
     #endregion
 	
