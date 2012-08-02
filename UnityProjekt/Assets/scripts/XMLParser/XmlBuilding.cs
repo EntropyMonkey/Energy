@@ -14,8 +14,8 @@ namespace XMLParser
 	public class Building
 	{
 		public BuildingTypes Type;
-		public string Name;
-		public string Identifier;
+		public string Name = "";
+		public string Identifier = "";
 		
 		public ValueGroup Values;
 		
