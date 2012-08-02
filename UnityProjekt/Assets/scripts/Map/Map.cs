@@ -14,8 +14,9 @@ public class Map : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.CreateMap();
+		//this.CreateMap();
 		//this.SaveMap();
+		this.LoadMap("energysave_11-46-06_02-08-2012.json");
 	}
 	
 	// Update is called once per frame
@@ -30,17 +31,18 @@ public class Map : MonoBehaviour {
 	
 	
 	public void LoadMap(string fileName) {
-		try{
+		//try{
 			fileReader = new StreamReader(fileName);
 			string mapStr = fileReader.ReadToEnd();
 			fileReader.Close();
-			List<string> mapList = new List<string>(mapStr.Split(("},").ToCharArray()));
+			List<string> mapList = new List<string>(mapStr.Split(new string[] {"},"}, StringSplitOptions.None));
 			
 			//TODO: Clear Map if Tiles already exist
 			
 			foreach(string s in mapList){
 				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 				Tile t = buffer.GetComponent<Tile>();
+				Debug.Log(s);
 				t.Load(s);
 				int tileX = (int)t.Coords.x;
 				int tileY = (int)t.Coords.y;
@@ -49,9 +51,9 @@ public class Map : MonoBehaviour {
 				this.Tiles[tileX, tileY] = t;
 			}
 			
-		}catch(Exception e){
-			Debug.Log("Map Load failed!");	
-		}
+		//}catch(Exception e){
+		//	Debug.Log("Map Load failed!"+e.Message);	
+		//}
 	}
 	
 	public void SaveMap() {

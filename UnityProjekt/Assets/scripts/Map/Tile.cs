@@ -133,17 +133,21 @@ public class Tile : MonoBehaviour
 	
 	public void Build(int Id)
 	{
+<<<<<<< HEAD
+		/*GameObject newBuilding = (
+=======
 		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
 		
 		GameObject newBuilding = (
 
+>>>>>>> b8d98b52d46fc62e087032bcfb603e35d3139e78
 			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
 
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
-	}
+	*/}
 	
 	// Removes the current building from this tile
 	public void RemoveBuilding()
@@ -170,18 +174,20 @@ public class Tile : MonoBehaviour
 	
 	public void Load(string json)
 	{
-		json = json.Substring(1, json.Length);
+		//Debug.Log(json);
+		//Debug.Log(json.Length);
+		json = json.Substring(1, json.Length-1);
 		string coords = json.Substring(0, json.IndexOf(",", 2) - 1);
 		this.Coords = this.StringToVector2(json.Substring(json.IndexOf("["), json.IndexOf("]")));
 		json = json.Substring(json.IndexOf("]") + 2);
-		this.Type = (TileType)Enum.Parse(typeof(TileType), json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+		this.Type = (TileType)Enum.Parse(typeof(TileType), json.Substring(json.IndexOf(":") + 1, json.IndexOf(",")-json.IndexOf(":")-1), true);
 		try
 		{
 			this.Pullution = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
 		}
 		catch(Exception e)
 		{
-			Debug.Log(e.Message);
+			//Debug.Log(e.Message);
 		}
 		json = json.Substring(json.IndexOf(":", 2) + 1);
 		if(json.Equals("null"))
@@ -198,7 +204,7 @@ public class Tile : MonoBehaviour
 			}
 			catch(Exception e)
 			{
-				Debug.Log(e.Message);
+				//Debug.Log(e.Message);
 			}
 			json = json.Substring(json.IndexOf("[") + 1, json.Length - 1);
 			foreach(string upgrade in json.Split(','))
@@ -211,7 +217,7 @@ public class Tile : MonoBehaviour
 				}
 				catch(Exception e)
 				{
-					Debug.Log(e.Message);	
+					//Debug.Log(e.Message);	
 				}
 				//TODO apply upgrade to building
 			}
