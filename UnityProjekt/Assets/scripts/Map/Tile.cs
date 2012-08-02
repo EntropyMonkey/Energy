@@ -137,7 +137,7 @@ public class Tile : MonoBehaviour
 		
 		GameObject newBuilding = (
 
-			Instantiate(gameManager.prefabs[Id], transform.position, Quaternion.identity) 
+			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
 
 		
