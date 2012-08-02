@@ -135,8 +135,8 @@ public class Tile : MonoBehaviour
 	{
 
 
-		Transform newBuilding = (Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
-			as Transform).gameObject;
+		Transform newBuilding = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
+			as Transform;
 
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
