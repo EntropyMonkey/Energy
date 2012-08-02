@@ -42,7 +42,6 @@ public class Map : MonoBehaviour {
 			foreach(string s in mapList){
 				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 				Tile t = buffer.GetComponent<Tile>();
-				Debug.Log(s);
 				t.Load(s);
 				int tileX = (int)t.Coords.x;
 				int tileY = (int)t.Coords.y;
