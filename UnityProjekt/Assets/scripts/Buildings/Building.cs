@@ -54,7 +54,7 @@ public class Building : MonoBehaviour
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
 		Tile currenttile = ma.GetTileFromPosition(uex, uey);
-		int currentTileType
+		//int currentTileType
 		
 		for(int i=0; i<=1; i++)
 		{
