@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 	//TODO add UI
 
 	public List<GameObject> prefabs;
-	public List<XMLParser.Building> Buildings;
+	public List<XmlParser.Building> Buildings;
 	
 	//TODO add map
 
@@ -34,8 +34,7 @@ public class GameManager : MonoBehaviour
 	void Start () 
 	{
 		prefabs = new List<GameObject>();
-		Buildings = new List<XMLParser.Building>();
-		
+		Buildings = new List<Building>();
 		//read game values xml data
 		Parser parser = new Parser("gamevalues.xml");
 		Buildings = parser.Buildings;
