@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public class Building : MonoBehaviour
 {
     public enum ResourceType { Energy, Work, Pollution };
+	public enum Type {};
+	
     #region Vars
 
     protected Tile tileRef;
@@ -18,7 +20,7 @@ public class Building : MonoBehaviour
     protected Dictionary<ResourceType, float> CurrentInput;
     protected Dictionary<ResourceType, float> CurrentOutput;
      
-	protected List<Upgrade> Upgrades;
+	public List<Upgrade> Upgrades;
 
     #endregion
 	
@@ -50,11 +52,11 @@ public class Building : MonoBehaviour
 	
 	public float[] updateEfficiency(int uex, int uey)
 	{
-		int[] Efficiency = new int[3]; //Effizienz werte 0...2 Energy, Work, Pollution
+		float[] Efficiency = new float[3]; //Effizienz werte 0...2 Energy, Work, Pollution
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
-		//Tile currenttile = ma
-		
+		Tile currenttile = ma.GetTileFromPosition(uex, uey);
+		//int currentTileType
 		
 		for(int i=0; i<=1; i++)
 		{
@@ -75,15 +77,19 @@ public class Building : MonoBehaviour
         float flEnergy;
         float flWork;
         float flPollution;
-        /*****I don't know if this function exists*****
-        flEnergy = XMLParser.XMLValueGroup.getProperty("energy") * UpdateEfficiency(daniX, daniY);
-        flWork = XMLParser.XMLValueGroup.getProperty("work") * UpdateEfficiency(daniX, daniY);
-        flPollution = XMLParser.XMLValueGroup.getProperty("pollution");
-        */
+
+        flEnergy = Output[ResourceType.Energy] * UpdateEfficiency(daniX, daniY);
+        flWork = Output[ResourceType.Work] * UpdateEfficiency(daniX, daniY);
+        flPollution =Output[ResourceType.Pollution];
         
-        Output.add(ResourceType.Energy, flEnergy);
-        Output.add(ResourceType.Work, flWork);
-        Output.add(ResourceType.Pollution, flPollution);
+        
+        CurrentOutput[ResourceType.Energy] = flEnergy;
+        CurrentOutput[ResourceType.Work] = flWork;
+        CurrentOutput[ResourceType.Pollution] = flPollution;
+        
+        Output.Add(ResourceType.Energy, flEnergy);
+        Output.Add(ResourceType.Work, flWork);
+        Output.Add(ResourceType.Pollution, flPollution);
 	}
 	
 	public void updateInput()
