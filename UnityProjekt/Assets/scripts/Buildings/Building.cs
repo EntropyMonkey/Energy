@@ -65,13 +65,16 @@ public class Building : MonoBehaviour
 		{
 			if(i == 0) // Berechnung der Energy Effizienz
 			{
-				//switch(currentTile.CurrentBuilding
-				
+				switch(currentTile.CurrentBuilding.Type)
+				{
+					
+				case Type.WaterPowerplant:	
+					
 					switch(currentTile.Type)
 					{
 					case TileType.Desert:
 						break;
-						
+							
 					case TileType.Grassland:
 						break;
 						
@@ -84,6 +87,20 @@ public class Building : MonoBehaviour
 					case TileType.Sea:
 						break;
 					}
+					
+					break;
+					
+				case Type.WindPowerplant:
+					break;
+					
+				case Type.BioPowerplant:
+					break;
+					
+				case Type.SolarPowerplant:
+					break;
+						
+				}
+				
 			}
 			else if(i == 1) // Berechnung der Work Effizienz
 			{
