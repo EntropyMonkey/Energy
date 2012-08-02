@@ -136,8 +136,10 @@ public class Tile : MonoBehaviour
 		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
 		
 		GameObject newBuilding = (
-			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
-			as GameObject);
+
+			Instantiate(gameManager.prefabs[Id], transform.position, Quaternion.identity) 
+			as Transform).gameObject;
+
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;

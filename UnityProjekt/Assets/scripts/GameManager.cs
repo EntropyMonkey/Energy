@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+<<<<<<< HEAD
+		prefabs = new List<GameObject>();
+=======
+>>>>>>> 3bdbcabb03fc4b32523ab1b4d04473a69295c206
 		Buildings = new List<XMLParser.Building>();
 		//read game values xml data
 		Parser parser = new Parser("gamevalues.xml");

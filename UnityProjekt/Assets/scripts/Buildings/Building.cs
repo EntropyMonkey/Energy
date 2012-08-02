@@ -56,16 +56,34 @@ public abstract class Building : MonoBehaviour
 	public float[] updateEfficiency(int uex, int uey)
 	{
 		float[] Efficiency = new float[3]; //Effizienz werte 0...2 Energy, Work, Pollution
+		
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
-		Tile currenttile = ma.GetTileFromPosition(uex, uey);
-		//int currentTileType
+		Tile currentTile = ma.GetTileFromPosition(uex, uey);
 		
 		for(int i=0; i<=1; i++)
 		{
 			if(i == 0) // Berechnung der Energy Effizienz
 			{
+				//switch(currentTile.CurrentBuilding
 				
+					switch(currentTile.Type)
+					{
+					case TileType.Desert:
+						break;
+						
+					case TileType.Grassland:
+						break;
+						
+					case TileType.Mountain:
+						break;
+						
+					case TileType.River:
+						break;
+						
+					case TileType.Sea:
+						break;
+					}
 			}
 			else if(i == 1) // Berechnung der Work Effizienz
 			{

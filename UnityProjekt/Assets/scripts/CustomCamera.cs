@@ -25,45 +25,44 @@ public class CustomCamera : MonoBehaviour
 	void Update () 
 	{
 		UpdateMovement();
-		UpdateScrolling();
+		UpdateScroll();
 	}
 
 	void UpdateMovement()
 	{
 		Vector3 direction = new Vector3(0,0,0);
-			
+		
 		if (Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
-		{
-			direction = new Vector3(0,0,1);
-		}
-		else if (Input.GetKey(KeyCode.RightArrow)||Input.GetKey(KeyCode.D))
-		{
-			direction = new Vector3(0,0,-1);
-		}
-		else if (Input.GetKey(KeyCode.UpArrow)||Input.GetKey(KeyCode.W))
-		{
-			direction = new Vector3(1,0,0);
-		}
-		else if (Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S))
 		{
 			direction = new Vector3(-1,0,0);
 		}
+		else if (Input.GetKey(KeyCode.RightArrow)||Input.GetKey(KeyCode.D))
+		{
+			direction = new Vector3(1,0,0);
+		}
+		else if (Input.GetKey(KeyCode.UpArrow)||Input.GetKey(KeyCode.W))
+		{
+			direction = new Vector3(0,0,1);
+		}
+		else if (Input.GetKey(KeyCode.DownArrow)||Input.GetKey(KeyCode.S))
+		{
+			direction = new Vector3(0,0,-1);
+		}
 		else if (Input.mousePosition.x < 25)
 		{
-		direction = new Vector3 (0,0,1);
+		direction = new Vector3 (-1,0,0);
 		}
 		else if (Input.mousePosition.x >=Screen.width -25) 
 		{
-		  	direction = new Vector3(0,0,-1);	
+		  	direction = new Vector3(1,0,0);	
 		}
 		else if (Input.mousePosition.y < 25)
 		{
-		 	direction = new Vector3 (-1,0,0);
-
+		 	direction = new Vector3 (0,0,-1);
 		}
 		else if (Input.mousePosition.y >Screen.height -25)
 		{
-			direction = new Vector3(1,0,0);
+			direction = new Vector3(0,0,1);
 		}
 		else 
 		{
@@ -77,13 +76,31 @@ public class CustomCamera : MonoBehaviour
 		
 
 		transform.position += velocity * Time.deltaTime;
-	}
-
-	void UpdateScrolling()
-	{
+		}
+	void UpdateScroll()
+	{			
+		Vector3 direction = new Vector3(0,0,0);
 		float deltaScroll = Input.GetAxis("Mouse ScrollWheel");
+		if (deltaScroll < 0 || Input.GetKey(KeyCode.KeypadMinus))
+		{
+			direction = new Vector3(0,200,0);
+		}
+		else if (deltaScroll > 0 || Input.GetKey(KeyCode.KeypadPlus))
+		{
+			direction = new Vector3 (0,-200,0);
+		}
+		//else 
+		//{
+		//	direction = -velocity * deceleration;
+		//}
+		
+		//velocity += direction *acceleration *Time.deltaTime;
+		//if the camera moves too fast, clamp its speed 
+		//if (velocity.sqrMagnitude> maxspeed * maxspeed)
+		//	velocity =velocity.normalized * maxspeed;
+		
 
-		transform.position += transform.forward * deltaScroll * Time.deltaTime;
+		transform.position += direction * Time.deltaTime;
 	}
 
 }
