@@ -24,8 +24,14 @@ public class CustomCamera : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		UpdateMovement();
+		UpdateScroll();
+	}
+	
+	void UpdateMovement()
+		{
 		Vector3 direction = new Vector3(0,0,0);
-			
+		
 		if (Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
 		{
 			direction = new Vector3(0,0,1);
@@ -71,7 +77,15 @@ public class CustomCamera : MonoBehaviour
 		
 
 		transform.position += velocity * Time.deltaTime;
-
+		}
+	void UpdateScroll()
+	{			
+		Vector3 direction = new Vector3(0,0,0);
+		float deltaScroll = Input.GetAxis("Mouse ScrollWheel");
+		if (deltaScroll )
+		{
+			direction = new Vector3(0,-1,0);
+		}
 	}
 
 }
