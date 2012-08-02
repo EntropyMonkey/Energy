@@ -113,10 +113,6 @@ public class Tile : MonoBehaviour
 	
 	private void Update()
 	{
-		if (Input.GetMouseButtonUp(0))
-		{
-			Build(1);	
-		}
 	}
 	
 	private string getUpgradesString()
@@ -129,25 +125,18 @@ public class Tile : MonoBehaviour
 		if(temp.Length > 1)
 			temp = temp.Substring(0, temp.Length - 1);
 		return temp;
-	}// Builds a building on this tile
+	}
 	
+	// Builds a building on this tile
 	public void Build(int Id)
 	{
-<<<<<<< HEAD
-		/*GameObject newBuilding = (
-=======
-		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
-		
 		GameObject newBuilding = (
-
->>>>>>> b8d98b52d46fc62e087032bcfb603e35d3139e78
 			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
-
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
-	*/}
+	}
 	
 	// Removes the current building from this tile
 	public void RemoveBuilding()

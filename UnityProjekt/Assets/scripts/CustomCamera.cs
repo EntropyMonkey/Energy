@@ -8,6 +8,8 @@ public class CustomCamera : MonoBehaviour
 	public const float acceleration = 250.0f;
 	public const float deceleration = 0.1f;
 
+	public Bounds bounds;
+
 	private Vector3 velocity;
 
 	//the minimum mouse position at which no scrolling happens
@@ -73,10 +75,10 @@ public class CustomCamera : MonoBehaviour
 		//if the camera moves too fast, clamp its speed 
 		if (velocity.sqrMagnitude> maxspeed * maxspeed)
 			velocity =velocity.normalized * maxspeed;
-		
 
 		transform.position += velocity * Time.deltaTime;
-		}
+	}
+
 	void UpdateScroll()
 	{			
 		Vector3 direction = new Vector3(0,0,0);

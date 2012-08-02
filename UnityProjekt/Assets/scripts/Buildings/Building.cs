@@ -12,8 +12,6 @@ public abstract class Building : MonoBehaviour
 		SolarPowerplant, BioPowerplant, WindPowerplant, FusionPowerplant,
 		PumpedStoragePowerStation, FuelCell, Battery, Forest, Ionizer, NuclearRepository };
 	
-    #region Vars
-
     protected Tile tileRef;
 	protected bool enabled;
     protected GameManager gameManager;
@@ -21,10 +19,14 @@ public abstract class Building : MonoBehaviour
     protected Dictionary<ResourceType, float> Output;
     protected Dictionary<ResourceType, float> CurrentInput;
     protected Dictionary<ResourceType, float> CurrentOutput;
-     
+
 	public List<Upgrade> Upgrades;
 
-    #endregion
+	public bool IsEnabled
+	{
+		get;
+		set;
+	}
 	
 	// Use this for initialization
 	void Start () 
@@ -35,14 +37,6 @@ public abstract class Building : MonoBehaviour
         CurrentOutput = new Dictionary<ResourceType, float>();
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
-	
-	#region Properties
-	
-	public bool IsEnabled
-	{
-		get;
-		set;
-	}	
 	
 	void Update()
 	{
@@ -123,8 +117,4 @@ public abstract class Building : MonoBehaviour
 	}
 	
 	public abstract Type getBuildingType();
-	
-	
-	#endregion
-
 }
