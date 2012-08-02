@@ -133,7 +133,6 @@ public class Tile : MonoBehaviour
 	
 	public void Build(int Id)
 	{
-<<<<<<< HEAD
 		/*GameObject newBuilding = (
 =======
 		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);

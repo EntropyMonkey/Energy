@@ -92,7 +92,7 @@ public abstract class Building : MonoBehaviour
 	public void updateOutput(int daniX, int daniY)
 	{
         float[] ufreturn;
-        float flEnergy;
+        float flPower;
         float flWork;
         float flPollution;
         double daytime;
@@ -101,14 +101,12 @@ public abstract class Building : MonoBehaviour
         ufreturn = updateEfficiency(daniX, daniY);
         daytime = -0.5 * System.Math.Cos ((double)System.Math.PI / 720 * (acttime - 120)) + 1 + System.Math.Sin (0.01 * acttime);
 
-        flEnergy = Output[ResourceType.Energy] * ufreturn[0];
-        flEnergy = flEnergy * (float)daytime;
-        flWork = Output[ResourceType.Work] * ufreturn[1];
-		flWork = flWork * (float)daytime;
+        flPower = Output[ResourceType.Energy] * ufreturn[0] * (float)daytime;
+        flWork = Output[ResourceType.Work] * ufreturn[1] * (float)daytime;
         flPollution =Output[ResourceType.Pollution];
         
         
-        CurrentOutput[ResourceType.Energy] = flEnergy;
+        CurrentOutput[ResourceType.Energy] = flPower;
         CurrentOutput[ResourceType.Work] = flWork;
         CurrentOutput[ResourceType.Pollution] = flPollution;
 	}
