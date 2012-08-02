@@ -36,13 +36,9 @@ public abstract class Building : MonoBehaviour
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
-	#region Properties
+
 	
-	public bool IsEnabled
-	{
-		get;
-		set;
-	}	
+	
 	
 	void Update()
 	{
@@ -144,6 +140,6 @@ public abstract class Building : MonoBehaviour
 	public abstract Type getBuildingType();
 	
 	
-	#endregion
+
 
 }
