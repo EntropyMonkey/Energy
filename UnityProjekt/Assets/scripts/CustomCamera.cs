@@ -85,5 +85,4 @@ public class CustomCamera : MonoBehaviour
 
 		transform.position += transform.forward * deltaScroll * Time.deltaTime;
 	}
-
 }

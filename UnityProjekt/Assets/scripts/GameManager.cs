@@ -7,16 +7,6 @@ using XMLParser;
 // instance at all
 public class GameManager : MonoBehaviour 
 {
-	//public GameManager Instance
-	//{
-	//    get
-	//    {
-	//        if (instance == null)
-
-	//        return instance;
-	//    }
-
-	//}
 
 	// There are three science steps, they are managed here and can be unlocked
 	// by paying with workforce
