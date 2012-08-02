@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public class Building : MonoBehaviour
 {
     public enum ResourceType { Energy, Work, Pollution };
+	public enum Type {};
+	
     #region Vars
 
     protected Tile tileRef;

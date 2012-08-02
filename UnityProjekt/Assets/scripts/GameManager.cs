@@ -6,17 +6,9 @@ using System.Collections.Generic;
 // instance at all
 public class GameManager : MonoBehaviour 
 {
-	//public GameManager Instance
-	//{
-	//    get
-	//    {
-	//        if (instance == null)
-
-	//        return instance;
-	//    }
-
-	//}
-
+	// translates names to ids for the prefab list
+	private static Dictionary<string,int> BuildingNameTranslator;
+	
 	// There are three science steps, they are managed here and can be unlocked
 	// by paying with workforce
 
@@ -24,14 +16,17 @@ public class GameManager : MonoBehaviour
 
 	//TODO add UI
 
-	public List<GameObject> prefabs;
+	// prefabs for instantiating buildings, string->identifier from xml
+	public List<Transform> Prefabs;
 	
 	//TODO add map
 
 	// Use this for initialization
 	void Start () 
 	{
-		prefabs = new List<GameObject>();
+		
+		//TODO create name/id dictionary
+		
 		//TODO create UI
 
 		//TODO create map
@@ -43,6 +38,8 @@ public class GameManager : MonoBehaviour
 		//TODO update UI
 	}
 	
-	
-	
+	public static int BNameToId(string name)
+	{
+		return BuildingNameTranslator[name];
+	}
 }

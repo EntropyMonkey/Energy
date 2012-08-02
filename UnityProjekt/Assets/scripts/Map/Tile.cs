@@ -10,6 +10,9 @@ public class Tile : MonoBehaviour
 	// Map instance to get tiles around it
 	private Map map;
 	
+	// GameManager instance
+	private GameManager gameManager;
+	
 	public TileType Type
 	{
 		get
@@ -67,46 +70,19 @@ public class Tile : MonoBehaviour
 		set;
 	}
 	
-	// Builds a building on this tile
-	public void Build(int ID)
-	{
-		GameObject newBuilding = Instantiate(GameObject.Find("Main Camera").GetComponent<GameManager>().prefabs[ID]) as GameObject;
-		CurrentBuilding = newBuilding.GetComponent<Building>();
-		isFree = false;
-	}
 	
-	// Removes the current building from this tile
-	public void RemoveBuilding()
-	{
-		// this.CurrentBuilding.Clear();
-		this.CurrentBuilding = null;
-		this.isFree = true;
-	}
-	
-	// Updates the last pollution of this tile
-	public void UpdatePollution()
-	{
-		//int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
-	  
-		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
-		//{
-		//    if(t.CurrentBuilding is PollutionReducer)
-		//    {
-		//        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
-		//    }
-		//}
-		//this.Polluition = tempPollution;
-	}
 	
 	// Initialization
 	public void Start()
 	{
-		this.isFree = true;
-		this.Pullution = 0;
+		isFree = true;
+		Pullution = 0;
 		Vector3 size = transform.localScale;
-		this.Size = new Vector2(size.x, size.z);
-		GameObject mapObject = GameObject.Find("Map");
-		this.map = mapObject.GetComponent<Map>();
+		Size = new Vector2(size.x, size.z);
+		//GameObject mapObject = GameObject.Find("Map");
+		//map = mapObject.GetComponent<Map>();
+		
+		gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
 	public string Save()
@@ -133,6 +109,14 @@ public class Tile : MonoBehaviour
 		return building;
 	}
 	
+	private void Update()
+	{
+		if (Input.GetMouseButtonUp(0))
+		{
+			Build(0);	
+		}
+	}
+	
 	private string getUpgradesString()
 	{
 		string temp = "";
@@ -145,5 +129,37 @@ public class Tile : MonoBehaviour
 		}
 		temp = temp.Substring(0, temp.Length - 1);
 		return temp;
+	}// Builds a building on this tile
+	public void Build(int Id)
+	{
+		GameObject newBuilding = (
+			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
+			as Transform).gameObject;
+		
+		CurrentBuilding = newBuilding.GetComponent<Building>();
+		isFree = false;
+	}
+	
+	// Removes the current building from this tile
+	public void RemoveBuilding()
+	{
+		// this.CurrentBuilding.Clear();
+		this.CurrentBuilding = null;
+		this.isFree = true;
+	}
+	
+	// Updates the last pollution of this tile
+	public void UpdatePollution()
+	{
+		//int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
+	  
+		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
+		//{
+		//    if(t.CurrentBuilding is PollutionReducer)
+		//    {
+		//        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
+		//    }
+		//}
+		//this.Polluition = tempPollution;
 	}
 }
