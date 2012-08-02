@@ -25,11 +25,19 @@ public class CustomCamera : MonoBehaviour
 	void Update () 
 	{
 		UpdateMovement();
+<<<<<<< HEAD
 		UpdateScroll();
 	}
 	
 	void UpdateMovement()
 		{
+=======
+		UpdateScrolling();
+	}
+
+	void UpdateMovement()
+	{
+>>>>>>> 4d3a28728c2bdfb5130ce06416de1f98fa0b39e7
 		Vector3 direction = new Vector3(0,0,0);
 		
 		if (Input.GetKey(KeyCode.LeftArrow)||Input.GetKey(KeyCode.A))
@@ -77,6 +85,7 @@ public class CustomCamera : MonoBehaviour
 		
 
 		transform.position += velocity * Time.deltaTime;
+<<<<<<< HEAD
 		}
 	void UpdateScroll()
 	{			
@@ -86,6 +95,15 @@ public class CustomCamera : MonoBehaviour
 		{
 			direction = new Vector3(0,-1,0);
 		}
+=======
+	}
+
+	void UpdateScrolling()
+	{
+		float deltaScroll = Input.GetAxis("Mouse ScrollWheel");
+
+		transform.position += transform.forward * deltaScroll * Time.deltaTime;
+>>>>>>> 4d3a28728c2bdfb5130ce06416de1f98fa0b39e7
 	}
 
 }
