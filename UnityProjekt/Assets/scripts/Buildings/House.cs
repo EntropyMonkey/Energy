@@ -12,6 +12,11 @@ public class House : Building {
 	// Update is called once per frame
 	void Update () 
 	{
+		base.Update();
+	}
 	
+	public override Type getBuildingType() 
+	{
+		return Type.House;
 	}
 }
