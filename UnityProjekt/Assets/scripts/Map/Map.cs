@@ -80,7 +80,8 @@ public class Map : MonoBehaviour {
 			Debug.Log("Map Save failed!");	
 		}
 	}
-	
+
+
 	
 	public void CreateMap() {
 		System.Random r = new System.Random(); //Zufallsgenerator initialisieren
