@@ -14,7 +14,7 @@ public class Building : MonoBehaviour
 
     protected Tile tileRef;
 	protected bool enabled;
-
+    protected GameManager gameManager;
     protected Dictionary<ResourceType, float> Input;
     protected Dictionary<ResourceType, float> Output;
     protected Dictionary<ResourceType, float> CurrentInput;
@@ -31,6 +31,7 @@ public class Building : MonoBehaviour
         Output = new Dictionary<ResourceType, float>();
         CurrentInput = new Dictionary<ResourceType, float>();
         CurrentOutput = new Dictionary<ResourceType, float>();
+        gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
 	#region Properties
@@ -78,11 +79,17 @@ public class Building : MonoBehaviour
         float flEnergy;
         float flWork;
         float flPollution;
+        float daytime;
+		float acttime = gameManager.InGameTime; //In Minutes
 
         ufreturn = updateEfficiency(daniX, daniY);
+        daytime = -0.5 * System.Math.Cos (System.Math.PI / 720(acttime - 120))
+			+ 1 + System.Math.Sin (0.01 * acttime);
 
         flEnergy = Output[ResourceType.Energy] * ufreturn[0];
+        flEnergy = flEnergy * daytime;
         flWork = Output[ResourceType.Work] * ufreturn[1];
+		flWork = flWork * daytime;
         flPollution =Output[ResourceType.Pollution];
         
         
