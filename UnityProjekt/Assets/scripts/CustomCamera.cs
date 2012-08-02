@@ -82,7 +82,7 @@ public class CustomCamera : MonoBehaviour
 	{			
 		Vector3 direction = new Vector3(0,0,0);
 		float deltaScroll = Input.GetAxis("Mouse ScrollWheel");
-		if (deltaScroll )
+		if (deltaScroll < 0 )
 		{
 			direction = new Vector3(0,-1,0);
 		}
