@@ -86,10 +86,6 @@ public class Building : MonoBehaviour
         CurrentOutput[ResourceType.Energy] = flEnergy;
         CurrentOutput[ResourceType.Work] = flWork;
         CurrentOutput[ResourceType.Pollution] = flPollution;
-        
-        Output.Add(ResourceType.Energy, flEnergy);
-        Output.Add(ResourceType.Work, flWork);
-        Output.Add(ResourceType.Pollution, flPollution);
 	}
 	
 	public void updateInput()
