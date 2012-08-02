@@ -92,18 +92,19 @@ public class Tile : MonoBehaviour
 			this.Coords.x + "," +
 			this.Coords.y + "," +
 			"]," +
-			"type:" + Enum.GetName(typeof(TileType), this.Type) + "," +
+			"type:\"" + Enum.GetName(typeof(TileType), this.Type) + "\"," +
+			"pollution:" + this.Pullution + "," + 
 			"currentBuilding:" +
-				(this.CurrentBuilding == null ? "null" : this.getBuildingJson()) +				
+				(this.CurrentBuilding == null ? "\"null\"" : this.getBuildingJson()) +				
 			"}";
 		return json;
 	}
-
+	
 	private string getBuildingJson()
 	{
 		string building = "{";
-		building += "type:" + this.CurrentBuilding.GetType().Name + "," +
-			"updates:[" +
+		building += "type:" + this.CurrentBuilding.ID + "," + // TODO: Check for id
+			"upgrades:[" +
 				this.getUpgradesString() +
 			"]}";
 		return building;
@@ -122,12 +123,10 @@ public class Tile : MonoBehaviour
 		string temp = "";
 		foreach(Upgrade u in this.CurrentBuilding.Upgrades)
 		{
-			temp += "{" +
-				"type:" + ((object)u).GetType().Name + "," +
-				"level:" + 1 + //TODO get the actual level or name of the upgrade
-				"},";
+			temp += "\"" + u.GetType().Name + ":" + 1 + "\",";//TODO get actual level or name of upgrade
 		}
-		temp = temp.Substring(0, temp.Length - 1);
+		if(temp.Length > 1)
+			temp = temp.Substring(0, temp.Length - 1);
 		return temp;
 	}// Builds a building on this tile
 	public void Build(int Id)
@@ -161,5 +160,73 @@ public class Tile : MonoBehaviour
 		//    }
 		//}
 		//this.Polluition = tempPollution;
+	}
+	
+	public void Load(string json)
+	{
+		json = json.Substring(1, json.Length);
+		string coords = json.Substring(0, json.IndexOf(",", 2) - 1);
+		this.Coords = this.StringToVector2(json.Substring(json.IndexOf("["), json.IndexOf("]")));
+		json = json.Substring(json.IndexOf("]") + 2);
+		this.Type = (TileType)Enum.Parse(typeof(TileType), json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+		try
+		{
+			this.Pullution = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+		}
+		catch(Exception e)
+		{
+			Debug.Log(e.Message);
+		}
+		json = json.Substring(json.IndexOf(":", 2) + 1);
+		if(json.Equals("null"))
+		{
+			this.CurrentBuilding = null;
+			this.isFree = true;
+		}
+		else
+		{
+			json = json.Substring(1, json.Length - 1);
+			try
+			{
+				int id = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+			}
+			catch(Exception e)
+			{
+				Debug.Log(e.Message);
+			}
+			json = json.Substring(json.IndexOf("[") + 1, json.Length - 1);
+			foreach(string upgrade in json.Split(","))
+			{
+				string upgradeSplit = upgrade.Split(":");
+				string upgradeType = upgradeSplit[0];
+				try
+				{
+					int upgradeLevel = int.Parse(upgradeSplit[1]);
+				}
+				catch(Exception e)
+				{
+					Debug.Log(e.Message);	
+				}
+				//TODO apply upgrade to building
+			}
+			//TODO create building
+		}
+	}
+	
+	private Vector2 StringToVector2(string json)
+	{
+		json = json.Replace("[", "").Replace("]","");
+		string[] pos = json.Split(",");
+		try
+		{
+			int x = int.Parse(pos[0]);
+			int y = int.Parse(pos[1]);
+			return new Vector2(x, y);
+		}
+		catch(Exception e)
+		{
+			Debug.Log(e.Message);
+		}
+		return null;
 	}
 }

@@ -20,7 +20,7 @@ public class Building : MonoBehaviour
     protected Dictionary<ResourceType, float> CurrentInput;
     protected Dictionary<ResourceType, float> CurrentOutput;
      
-	public List<Upgrade> Upgrades;
+	protected List<Upgrade> Upgrades;
 
     #endregion
 	
@@ -50,19 +50,47 @@ public class Building : MonoBehaviour
 	{
 	}
 	
-	public float updateEfficiency(int[] BuildCoords)
+	public float[] updateEfficiency(int uex, int uey)
 	{
+		int[] Efficiency = new int[3]; //Effizienz werte 0...2 Energy, Work, Pollution
+		Map ma = GameObject.Find("Map").GetComponent<Map>();
+		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
+		//Tile currenttile = ma
 		
 		
-		return 0.0f;
+		for(int i=0; i<=1; i++)
+		{
+			if(i == 0) // Berechnung der Energy Effizienz
+			{
+				
+			}
+			else if(i == 1) // Berechnung der Work Effizienz
+			{
+				
+			}
+		}
+		
+		return Efficiency;
 	}
-	public void updateOutput()
+	public void updateOutput(int daniX, int daniY)
 	{
-		
+        float flEnergy;
+        float flWork;
+        float flPollution;
+        /*****I don't know if this function exists*****
+        flEnergy = XMLParser.XMLValueGroup.getProperty("energy") * UpdateEfficiency(daniX, daniY);
+        flWork = XMLParser.XMLValueGroup.getProperty("work") * UpdateEfficiency(daniX, daniY);
+        flPollution = XMLParser.XMLValueGroup.getProperty("pollution");
+        */
+        
+        Output.add(ResourceType.Energy, flEnergy);
+        Output.add(ResourceType.Work, flWork);
+        Output.add(ResourceType.Pollution, flPollution);
 	}
 	
 	public void updateInput()
 	{
+        
 	}
 	
 	#endregion

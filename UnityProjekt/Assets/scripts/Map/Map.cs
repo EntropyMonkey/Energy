@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System;
 
 public class Map : MonoBehaviour {
@@ -8,6 +9,8 @@ public class Map : MonoBehaviour {
 	private const int environmentRadius = 3;
 	public Tile[,] Tiles = new Tile[MapSize, MapSize];
 	public GameObject prefab;
+	private StreamReader fileReader;
+	private StreamWriter fileWriter;
 	
 	// Use this for initialization
 	void Start () {
@@ -23,6 +26,37 @@ public class Map : MonoBehaviour {
 			}
 		}*/
 	}
+	
+	
+	public void LoadMap() {
+		
+		
+	}
+	
+	public void SaveMap() {
+		string jsonMap = "";
+		string fileName = "energysave_" + DateTime.Now.ToShortDateString() + ".json";
+		
+		
+		try{
+			for(int y = 0; y < MapSize; y++)
+			{
+				for(int x = 0; x < MapSize; x++)
+				{
+					jsonMap += Tiles[x, y].Save();
+				}
+			}
+			Debug.Log(fileName);
+			Debug.Log(jsonMap);
+			
+		}catch(Exception e){
+			Debug.Log("Map Save failed!");	
+		}
+		
+		
+		
+	}
+	
 	
 	public void CreateMap() {
 		System.Random r = new System.Random(); //Zufallsgenerator initialisieren
@@ -114,12 +148,30 @@ public class Map : MonoBehaviour {
 		
 	}
 	
+	
+	public Tile GetTileFromPosition(int x, int y) {
+		return this.Tiles[x, y];
+	}
+	
 	public List<Tile> GetEnvironmentTiles(Tile t) {
 		Vector2 c = t.Coords;
 		List<Tile> r = new List<Tile>();
 		for (int x = (int)c.x - environmentRadius; x < (int)c.x + environmentRadius; x++) {
 			for (int y = (int)c.y - environmentRadius; y < (int)c.y + environmentRadius; y++) {
-				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize) { //check if it is not outside of the array borders
+				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize && (int)c.x != x && (int)c.y != y) { //check if it is not outside of the array borders
+					r.Add(this.Tiles[x, y]);
+				}
+			}
+		}
+		return r;	
+	}
+	
+	public List<Tile> GetEnvironmentTiles(int tx, int ty) {
+		Vector2 c = new Vector2(tx, ty);
+		List<Tile> r = new List<Tile>();
+		for (int x = (int)c.x - environmentRadius; x < (int)c.x + environmentRadius; x++) {
+			for (int y = (int)c.y - environmentRadius; y < (int)c.y + environmentRadius; y++) {
+				if (x >= 0 && y >= 0 && x < MapSize && y < MapSize && (int)c.x != x && (int)c.y != y) { //check if it is not outside of the array borders
 					r.Add(this.Tiles[x, y]);
 				}
 			}
