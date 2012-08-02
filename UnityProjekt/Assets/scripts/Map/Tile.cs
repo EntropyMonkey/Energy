@@ -82,19 +82,19 @@ public class Tile : MonoBehaviour
 	}
 	
 	// Updates the last pollution of this tile
-	public void UpdatePollution()
-	{
-		int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
-	  
-	  	foreach(Tile t in this.map.GetEnvironmentTiles(this))
-	  	{
-	  		if(t.CurrentBuilding is PollutionReducer)
-	  		{
-	  			tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
-	  		}
-	  	}
-	  	this.Polluition = tempPollution;
-	}
+//	public void UpdatePollution()
+//	{
+//		int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
+//	  
+//	  	foreach(Tile t in this.map.GetEnvironmentTiles(this))
+//	  	{
+//	  		if(t.CurrentBuilding is PollutionReducer)
+//	  		{
+//	  			tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
+//	  		}
+//	  	}
+//	  	this.Polluition = tempPollution;
+//	}
 	
 	// Initialization
 	public void Start()
@@ -107,8 +107,8 @@ public class Tile : MonoBehaviour
 		this.map = mapObject.GetComponent<Map>();
 	}
 	
-	public string Save()
-	{
-		
-	}
+//	public string Save()
+//	{
+//		
+//	}
 }
