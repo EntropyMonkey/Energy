@@ -14,4 +14,9 @@ public class House : Building {
 	{
 	
 	}
+	
+	public override Type getBuildingType() 
+	{
+		return Type.House;
+	}
 }
