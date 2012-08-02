@@ -64,7 +64,7 @@ public class Tile : MonoBehaviour
 	}
 	
 	// The last pollution of this tile (incl. building and surroundings)
-	public float Pullution
+	public float Pollution
 	{
 		get;
 		set;
@@ -75,26 +75,27 @@ public class Tile : MonoBehaviour
 	// Initialization
 	public void Start()
 	{
-		isFree = true;
-		Pullution = 0;
+		this.isFree = true;
+		this.Pollution = 0;
 		Vector3 size = transform.localScale;
-		Size = new Vector2(size.x, size.z);
-		//GameObject mapObject = GameObject.Find("Map");
-		//map = mapObject.GetComponent<Map>();
+		this.Size = new Vector2(size.x, size.z);
+		GameObject mapObject = GameObject.Find("Map");
+		map = mapObject.GetComponent<Map>();
 		
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		
 	}
 	
 	public string Save()
 	{
 		string json = "{";
-		json += "coords:[" +
+		json += "\"coords\":[" +
 			this.Coords.x + "," +
 			this.Coords.y + "," +
 			"]," +
-			"type:\"" + Enum.GetName(typeof(TileType), this.Type) + "\"," +
-			"pollution:" + this.Pullution + "," + 
-			"currentBuilding:" +
+			"\"type:\"" + Enum.GetName(typeof(TileType), this.Type) + "\"," +
+			"\"pollution\":" + this.Pollution + "," + 
+			"\"currentBuilding\":" +
 				(this.CurrentBuilding == null ? "\"null\"" : this.getBuildingJson()) +				
 			"}";
 		return json;
@@ -102,21 +103,12 @@ public class Tile : MonoBehaviour
 	
 	private string getBuildingJson()
 	{
-	//	string building = "{";
-	//	building += "type:" + this.CurrentBuilding.ID + "," + // TODO: Check for id
-	//		"upgrades:[" +
-	//			this.getUpgradesString() +
-	//		"]}";
-	//	return building;
-		return "";
-	}
-	
-	private void Update()
-	{
-		if (Input.GetMouseButtonUp(0))
-		{
-			Build(1);	
-		}
+		string building = "{";
+		building += "\"type\":" + (int)this.CurrentBuilding.getBuildingType() + "," + // TODO: Check for id
+			"\"upgrades\":[" +
+				this.getUpgradesString() +
+			"]}";
+		return building;
 	}
 	
 	private string getUpgradesString()
@@ -129,25 +121,21 @@ public class Tile : MonoBehaviour
 		if(temp.Length > 1)
 			temp = temp.Substring(0, temp.Length - 1);
 		return temp;
-	}// Builds a building on this tile
-	
-	public void Build(int Id)
+	}
+	// Builds a building on this tile
+	public Building Build(int Id)
 	{
-
-
-		Transform newBuilding = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
-			as Transform;
-
+		GameObject newBuilding = (GameObject)Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
 		
-		CurrentBuilding = newBuilding.GetComponent<Building>();
-		isFree = false;
+		this.CurrentBuilding = newBuilding.GetComponent<Building>();
+		this.isFree = false;
+		return this.CurrentBuilding;
 	}
 	
 	// Removes the current building from this tile
 	public void RemoveBuilding()
 	{
-		// this.CurrentBuilding.Clear();
-		CurrentBuilding.transform.renderer.enabled = false;
+		// this.CurrentBuilding.Clear(); //TODO
 		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
@@ -155,8 +143,9 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		//int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
+		int tempPollution = this.Pollution + this.CurrentBuilding.updateOutput()[ResourceType.Pollution];
 	  
+		//TODO
 		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
 		//{
 		//    if(t.CurrentBuilding is PollutionReducer)
@@ -164,21 +153,21 @@ public class Tile : MonoBehaviour
 		//        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
 		//    }
 		//}
-		//this.Polluition = tempPollution;
+		this.Pollution = tempPollution;
 	}
 	
 	public void Load(string json)
 	{
 		//Debug.Log(json);
 		//Debug.Log(json.Length);
-		json = json.Substring(1, json.Length-1);
+		json = json.Substring(1, json.Length - 1);
 		string coords = json.Substring(0, json.IndexOf(",", 2) - 1);
 		this.Coords = this.StringToVector2(json.Substring(json.IndexOf("["), json.IndexOf("]")));
 		json = json.Substring(json.IndexOf("]") + 2);
 		this.Type = (TileType)Enum.Parse(typeof(TileType), json.Substring(json.IndexOf(":") + 1, json.IndexOf(",")-json.IndexOf(":")-1), true);
 		try
 		{
-			this.Pullution = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+			this.Pollution = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
 		}
 		catch(Exception e)
 		{
@@ -193,30 +182,35 @@ public class Tile : MonoBehaviour
 		else
 		{
 			json = json.Substring(1, json.Length - 1);
+			int id = -1;
 			try
 			{
-				int id = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+				id = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
 			}
 			catch(Exception e)
 			{
 				//Debug.Log(e.Message);
 			}
 			json = json.Substring(json.IndexOf("[") + 1, json.Length - 1);
-			foreach(string upgrade in json.Split(','))
+			if(id != -1)
 			{
-				string[] upgradeSplit = upgrade.Split(':');
-				string upgradeType = upgradeSplit[0];
-				try
+				Building b = this.Build(id);
+				foreach(string upgrade in json.Split(','))
 				{
-					int upgradeLevel = int.Parse(upgradeSplit[1]);
+					string tempupgrade = upgrade.Replace("\"", "");
+					string[] upgradeSplit = tempupgrade.Split(':');
+					string upgradeType = upgradeSplit[0];
+					try
+					{
+						int upgradeLevel = int.Parse(upgradeSplit[1]);
+					}
+					catch(Exception e)
+					{
+						Debug.Log(e.Message);	
+					}
+					//TODO apply upgrade to building
 				}
-				catch(Exception e)
-				{
-					//Debug.Log(e.Message);	
-				}
-				//TODO apply upgrade to building
 			}
-			//TODO create building
 		}
 	}
 	
