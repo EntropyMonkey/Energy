@@ -7,9 +7,17 @@ using XMLParser;
 // instance at all
 public class GameManager : MonoBehaviour 
 {
-	// translates names to ids for the prefab list
-	private static Dictionary<string,int> BuildingNameTranslator;
-	
+	//public GameManager Instance
+	//{
+	//    get
+	//    {
+	//        if (instance == null)
+
+	//        return instance;
+	//    }
+
+	//}
+
 	// There are three science steps, they are managed here and can be unlocked
 	// by paying with workforce
 
@@ -17,8 +25,7 @@ public class GameManager : MonoBehaviour
 
 	//TODO add UI
 
-	// prefabs for instantiating buildings, string->identifier from xml
-	public List<Transform> Prefabs;
+	public List<GameObject> prefabs;
 	public List<XmlParser.Building> Buildings;
 	
 	//TODO add map
@@ -26,7 +33,8 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Prefabs = new List<GameObject>();
+		prefabs = new List<GameObject>();
+		Buildings = new List<Building>();
 		//read game values xml data
 		Parser parser = new Parser("gamevalues.xml");
 		Buildings = parser.Buildings;
@@ -42,8 +50,6 @@ public class GameManager : MonoBehaviour
 		//TODO update UI
 	}
 	
-	public static int BNameToId(string name)
-	{
-		return BuildingNameTranslator[name];
-	}
+	
+	
 }
