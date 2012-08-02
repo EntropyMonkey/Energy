@@ -81,25 +81,7 @@ public class Map : MonoBehaviour {
 		}
 	}
 
-	public Dictionary<Building.ResourceType, float> getTotalValues()
-	{
-		Dictionary<string, double> returnVal;
-		double power = 0, work = 0, pollution= 0;
-		for (int x = 0; x < MapSize; x++) {
-			for (int y = 0; y < MapSize; y++) {
-				Building b = Tiles[x,y].CurrentBuilding();
-				Dictonary<RessourceType, float> outval = b.updateOutput();
-				Dictonary<RessourceType, float> inval = b.updateInput();
-				power += outval[Building.Power] - inval[Building.Power];
-				work += outval[Building.Work] - inval[Building.Work];
-				pollution += outval[Building.Pollution] - inval[Building.Pollution];
-			}
-		}
-		returnVal[Building.Power] = power;
-		returnVal[Building.Work] = work;
-		returnVal[Building.Pollution] = pollution;
-		return returnVal;
-	}
+
 	
 	public void CreateMap() {
 		System.Random r = new System.Random(); //Zufallsgenerator initialisieren
