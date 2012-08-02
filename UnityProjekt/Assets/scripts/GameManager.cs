@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 	//TODO add UI
 
 	public List<GameObject> prefabs;
-	public List<XmlParser.Building> Buildings;
+	public List<XMLParser.Building> Buildings;
 	
 	//TODO add map
 
