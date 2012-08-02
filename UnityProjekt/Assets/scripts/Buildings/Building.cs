@@ -75,16 +75,16 @@ public class Building : MonoBehaviour
         float flEnergy;
         float flWork;
         float flPollution;
-        /*****I don't know if this function exists*****
-        flEnergy = XMLParser.XMLValueGroup.getProperty("energy") * UpdateEfficiency(daniX, daniY);
-        flWork = XMLParser.XMLValueGroup.getProperty("work") * UpdateEfficiency(daniX, daniY);
-        flPollution = XMLParser.XMLValueGroup.getProperty("pollution");
-        */
-        /*****Many Problems****
-        Output.add(ResourceType.Energy, flEnergy);
-        Output.add(ResourceType.Work, flWork);
-        Output.add(ResourceType.Pollution, flPollution);
-        */
+
+        flEnergy = Output[ResourceType.Energy] * UpdateEfficiency(daniX, daniY);
+        flWork = Output[ResourceType.Work] * UpdateEfficiency(daniX, daniY);
+        flPollution =Output[ResourceType.Pollution];
+        
+        
+        CurrentOutput[ResourceType.Energy] = flEnergy;
+        CurrentOutput[ResourceType.Work] = flWork;
+        CurrentOutput[ResourceType.Pollution] = flPollution;
+        
 	}
 	
 	public void updateInput()
