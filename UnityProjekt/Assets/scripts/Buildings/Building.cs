@@ -48,11 +48,27 @@ public class Building : MonoBehaviour
 	{
 	}
 	
-	public float updateEfficiency(int[] BuildCoords)
+	public float[] updateEfficiency(int uex, int uey)
 	{
+		int[] Efficiency = new int[3]; //Effizienz werte 0...2 Energy, Work, Pollution
+		Map ma = GameObject.Find("Map").GetComponent<Map>();
+		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
+		//Tile currenttile = ma
 		
 		
-		return 0.0f;
+		for(int i=0; i<=1; i++)
+		{
+			if(i == 0) // Berechnung der Energy Effizienz
+			{
+				
+			}
+			else if(i == 1) // Berechnung der Work Effizienz
+			{
+				
+			}
+		}
+		
+		return Efficiency;
 	}
 	public void updateOutput(int daniX, int daniY)
 	{
