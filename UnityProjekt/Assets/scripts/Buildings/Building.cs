@@ -79,17 +79,16 @@ public class Building : MonoBehaviour
         float flEnergy;
         float flWork;
         float flPollution;
-        float daytime;
-		float acttime = gameManager.InGameTime; //In Minutes
+        double daytime;
+		float acttime = (float)gameManager.InGameTime; //In Minutes
 
         ufreturn = updateEfficiency(daniX, daniY);
-        daytime = -0.5 * System.Math.Cos (System.Math.PI / 720(acttime - 120))
-			+ 1 + System.Math.Sin (0.01 * acttime);
+        daytime = -0.5 * System.Math.Cos ((double)System.Math.PI / 720 * (acttime - 120)) + 1 + System.Math.Sin (0.01 * acttime);
 
         flEnergy = Output[ResourceType.Energy] * ufreturn[0];
-        flEnergy = flEnergy * daytime;
+        flEnergy = flEnergy * (float)daytime;
         flWork = Output[ResourceType.Work] * ufreturn[1];
-		flWork = flWork * daytime;
+		flWork = flWork * (float)daytime;
         flPollution =Output[ResourceType.Pollution];
         
         
