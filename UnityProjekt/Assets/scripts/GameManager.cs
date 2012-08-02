@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 	public List<GameObject> Prefabs;
 	public List<XMLParser.Building> Buildings;
 	
+	public float InGameTime = 720.0f;
+	
 	//TODO add map
 
 	// Use this for initialization
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 		//TODO update UI
+		InGameTime += Time.deltaTime * 8.0f;
+		if (InGameTime >= 1440) InGameTime -= 1440.0f;
 	}
 	
 	
