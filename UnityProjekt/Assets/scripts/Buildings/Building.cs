@@ -8,7 +8,9 @@ using System.Collections.Generic;
 public class Building : MonoBehaviour
 {
     public enum ResourceType { Energy, Work, Pollution };
-	public enum Type {};
+	public enum Type { House, NuclearPowerplant, CoalPowerplant, WaterPowerplant, 
+		SolarPowerplant, BioPowerplant, WindPowerplant, FusionPowerplant,
+		PumpedStoragePowerStation, FuelCell, Battery, Forest, Ionizer, NuclearRepository };
 	
     #region Vars
 
@@ -102,6 +104,12 @@ public class Building : MonoBehaviour
 	{
         
 	}
+	
+	public abstract Type getBuildingType()
+	{
+		
+	}
+	
 	
 	#endregion
 
