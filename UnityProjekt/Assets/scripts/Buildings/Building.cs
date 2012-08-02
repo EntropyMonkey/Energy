@@ -53,8 +53,8 @@ public class Building : MonoBehaviour
 		int[] Efficiency = new int[3]; //Effizienz werte 0...2 Energy, Work, Pollution
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
-		//Tile currenttile = ma
-		
+		Tile currenttile = ma.GetTileFromPosition(uex, uey);
+		int currentTileType
 		
 		for(int i=0; i<=1; i++)
 		{
@@ -81,9 +81,9 @@ public class Building : MonoBehaviour
         flPollution = XMLParser.XMLValueGroup.getProperty("pollution");
         */
         
-        Output.add(ResourceType.Energy, flEnergy);
-        Output.add(ResourceType.Work, flWork);
-        Output.add(ResourceType.Pollution, flPollution);
+        Output.Add(ResourceType.Energy, flEnergy);
+        Output.Add(ResourceType.Work, flWork);
+        Output.Add(ResourceType.Pollution, flPollution);
 	}
 	
 	public void updateInput()
