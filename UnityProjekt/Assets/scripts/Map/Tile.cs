@@ -133,7 +133,7 @@ public class Tile : MonoBehaviour
 	public void Build(int Id)
 	{
 		GameObject newBuilding = (
-			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
+			Instantiate(gameManager.prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
