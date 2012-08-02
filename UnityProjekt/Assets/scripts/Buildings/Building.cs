@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class Building : MonoBehaviour
 {
-    public enum ResourceType { Energy, Work, Pollution };
+    public enum ResourceType { Power, Work, Pollution };
 	public enum Type { House, NuclearPowerplant, CoalPowerplant, WaterPowerplant, 
 		SolarPowerplant, BioPowerplant, WindPowerplant, FusionPowerplant,
 		PumpedStoragePowerStation, FuelCell, Battery, Forest, Ionizer, NuclearRepository };
@@ -15,7 +16,7 @@ public abstract class Building : MonoBehaviour
     #region Vars
 
     protected Tile tileRef;
-	protected bool enabled;
+	protected bool isEnabled;
     protected GameManager gameManager;
     protected Dictionary<ResourceType, float> Input;
     protected Dictionary<ResourceType, float> Output;
@@ -36,10 +37,6 @@ public abstract class Building : MonoBehaviour
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
-
-	
-	
-	
 	void Update()
 	{
 		
@@ -51,7 +48,7 @@ public abstract class Building : MonoBehaviour
 	
 	public float[] updateEfficiency(int uex, int uey)
 	{
-		float[] Efficiency = new float[3]; //Effizienz werte 0...2 Energy, Work, Pollution
+		float[] Efficiency = new float[3]; //Effizienz werte 0...2 , Work, Pollution
 		
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
@@ -59,7 +56,7 @@ public abstract class Building : MonoBehaviour
 		
 		for(int i=0; i<=1; i++)
 		{
-			if(i == 0) // Berechnung der Energy Effizienz
+			if(i == 0) // Berechnung der Power Effizienz
 			{
 				//switch(currentTile.CurrentBuilding
 				
@@ -89,57 +86,32 @@ public abstract class Building : MonoBehaviour
 		
 		return Efficiency;
 	}
-	public void updateOutput(int upoiX, int upoY)
+	
+	public void updateOutput(int inX, int inY)
 	{
-        float[] ufreturn;
-        float flEnergy;
-        float flWork;
-        float flPollution;
-        double daytime;
-		float acttime = (float)gameManager.InGameTime; //In Minutes
-
-        ufreturn = updateEfficiency(upoX, upoY);
-        daytime = -0.5 * System.Math.Cos ((double)System.Math.PI / 720 * (acttime - 120)) + 1 + System.Math.Sin (0.01 * acttime);
-
-        flEnergy = Output[ResourceType.Energy] * ufreturn[0];
-        flEnergy = flEnergy * (float)daytime;
-        flWork = Output[ResourceType.Work] * ufreturn[1];
-		flWork = flWork * (float)daytime;
-        flPollution =Output[ResourceType.Pollution];
+        float[] ufreturn = updateEfficiency(inX, inY);
+        float flPower = Output[ResourceType.Power] * ufreturn[0];
+        float flWork = Output[ResourceType.Work] * ufreturn[1];
+        float flPollution = Output[ResourceType.Pollution];
+        //double daytime = -0.5 * System.Math.Cos (Math.PI / 720.0 * (Convert.ToDouble(gameManager.InGameTime) - 120)) + 1 + System.Math.Sin (0.01 * Convert.ToDouble(gameManager.InGameTime));
         
-        
-        CurrentOutput[ResourceType.Energy] = flEnergy;
+        CurrentOutput[ResourceType.Power] = flPower;
         CurrentOutput[ResourceType.Work] = flWork;
         CurrentOutput[ResourceType.Pollution] = flPollution;
 	}
 	
-	public void updateInput(int upoX, int upoY)
+	public void updateInput(int inX, int inY)
 	{
-        float[] ufreturn;
-        float flEnergy;
-        float flWork;
-        float flPollution;
-        double daytime;
-		float acttime = (float)gameManager.InGameTime; //In Minutes
-
-        ufreturn = updateEfficiency(upoX, upoY);
-        daytime = -0.5 * System.Math.Cos ((double)System.Math.PI / 720 * (acttime - 120)) + 1 + System.Math.Sin (0.01 * acttime);
-
-        flEnergy = Input[ResourceType.Energy] * ufreturn[0];
-        flEnergy = flEnergy * (float)daytime;
-        flWork = Input[ResourceType.Work] * ufreturn[1];
-		flWork = flWork * (float)daytime;
-        flPollution =Output[ResourceType.Pollution];
+        float[] ufreturn = updateEfficiency(inX, inY);
+        float flPower = Input[ResourceType.Power] * ufreturn[0];
+        float flWork = Input[ResourceType.Work] * ufreturn[1];
+        float flPollution = Output[ResourceType.Pollution];
         
         
-        CurrentInput[ResourceType.Energy] = flEnergy;
+        CurrentInput[ResourceType.Power] = flPower;
         CurrentInput[ResourceType.Work] = flWork;
         CurrentInput[ResourceType.Pollution] = flPollution;
 	}
 	
 	public abstract Type getBuildingType();
-	
-	
-
-
 }
