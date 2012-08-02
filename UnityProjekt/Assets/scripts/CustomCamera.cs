@@ -7,6 +7,7 @@ public class CustomCamera : MonoBehaviour
 	public const float maxspeed = 1000.0f;
 	public const float acceleration = 250.0f;
 	public const float deceleration = 0.1f;
+	public float mapsize = 25f;
 
 	private Vector3 velocity;
 
@@ -72,10 +73,33 @@ public class CustomCamera : MonoBehaviour
 		velocity += direction *acceleration *Time.deltaTime;
 		//if the camera moves too fast, clamp its speed 
 		if (velocity.sqrMagnitude> maxspeed * maxspeed)
+		{
 			velocity =velocity.normalized * maxspeed;
-		
-
+		}
 		transform.position += velocity * Time.deltaTime;
+		Vector3 newPos = transform.position;
+		if (transform.position.x > mapsize)
+		{
+			Debug.Log (1);
+			//newPos.x = mapsize/2;
+		}
+		else if (transform.position.x < -mapsize)
+		{
+			Debug.Log (2);
+			//direction = newPos;
+		}
+		else if (transform.position.z > mapsize)
+		{
+			Debug.Log (3);
+			//direction = newPos;
+		}
+		else if (transform.position.z < -mapsize)
+		{
+			Debug.Log (4);
+			//direction = newPos;
+		}
+		transform.position = newPos;
+		
 		}
 	void UpdateScroll()
 	{			
