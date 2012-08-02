@@ -70,13 +70,25 @@ public class Building : MonoBehaviour
 		
 		return Efficiency;
 	}
-	public void updateOutput()
+	public void updateOutput(int daniX, int daniY)
 	{
-		
+        float flEnergy;
+        float flWork;
+        float flPollution;
+        /*****I don't know if this function exists*****
+        flEnergy = XMLParser.XMLValueGroup.getProperty("energy") * UpdateEfficiency(daniX, daniY);
+        flWork = XMLParser.XMLValueGroup.getProperty("work") * UpdateEfficiency(daniX, daniY);
+        flPollution = XMLParser.XMLValueGroup.getProperty("pollution");
+        */
+        
+        Output.add(ResourceType.Energy, flEnergy);
+        Output.add(ResourceType.Work, flWork);
+        Output.add(ResourceType.Pollution, flPollution);
 	}
 	
 	public void updateInput()
 	{
+        
 	}
 	
 	#endregion
