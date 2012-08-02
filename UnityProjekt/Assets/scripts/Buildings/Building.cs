@@ -39,6 +39,11 @@ public class Building : MonoBehaviour
 		set;
 	}	
 	
+	void Update()
+	{
+		
+	}
+	
 	public void updatePollution()
 	{
 	}
