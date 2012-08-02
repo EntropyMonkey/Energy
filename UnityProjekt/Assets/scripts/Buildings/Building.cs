@@ -46,13 +46,13 @@ public abstract class Building : MonoBehaviour
 	{
 	}
 	
-	public float[] updateEfficiency(int uex, int uey)
+	public float[] updateEfficiency()
 	{
 		float[] Efficiency = new float[3]; //Effizienz werte 0...2 , Work, Pollution
 		
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
-		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
-		Tile currentTile = ma.GetTileFromPosition(uex, uey);
+		List<Tile> tilelist = ma.GetEnvironmentTiles(Convert.ToInt32(tileRef.Coords.x), Convert.ToInt32(tileRef.Coords.y));
+		Tile currentTile = ma.GetTileFromPosition(Convert.ToInt32(tileRef.Coords.x), Convert.ToInt32(tileRef.Coords.y));
 		
 		for(int i=0; i<=1; i++)
 		{
@@ -104,9 +104,9 @@ public abstract class Building : MonoBehaviour
 		return Efficiency;
 	}
 	
-	public Dictionary<ResourceType, float> updateOutput(int inX, int inY)
+	public Dictionary<ResourceType, float> updateOutput()
 	{
-        float[] ufreturn = updateEfficiency(inX, inY);
+        float[] ufreturn = updateEfficiency();
         float flPower = output[ResourceType.Power] * ufreturn[0];
         float flWork = output[ResourceType.Work] * ufreturn[1];
         float flPollution = output[ResourceType.Pollution];
@@ -119,9 +119,9 @@ public abstract class Building : MonoBehaviour
 		return currentOutput;
 	}
 	
-	public Dictionary<ResourceType, float> updateInput(int inX, int inY)
+	public Dictionary<ResourceType, float> updateInput()
 	{
-        float[] ufreturn = updateEfficiency(inX, inY);
+        float[] ufreturn = updateEfficiency();
         float flPower = input[ResourceType.Power] * ufreturn[0];
         float flWork = input[ResourceType.Work] * ufreturn[1];
         float flPollution = input[ResourceType.Pollution];
