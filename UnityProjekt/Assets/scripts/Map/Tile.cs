@@ -68,9 +68,9 @@ public class Tile : MonoBehaviour
 	}
 	
 	// Builds a building on this tile
-	public void Build(Transform inBuilding)
+	public void Build(int ID)
 	{
-		GameObject newBuilding = Instantiate(inBuilding) as GameObject;
+		GameObject newBuilding = Instantiate(GameObject.Find("Main Camera").GetComponent<GameManager>().prefabs[ID]) as GameObject;
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
 	}
