@@ -6,10 +6,15 @@ using System.Collections.Generic;
 /// A building placed by the user.
 /// </summary>
 public class Building : MonoBehaviour {
-	
-	protected Tile tileRef;
+
+
+    #region Vars
+
+    protected Tile tileRef;
 	protected bool enabled;
-	protected Dictionary<ResourceType, float> Input = 
+
+    protected Dictionary<ResourceType, float> Input = 
+
             new Dictionary<string, float>();
 	protected Dictionary<ResourceType, float> Output = 
             new Dictionary<string, float>();
@@ -18,9 +23,12 @@ public class Building : MonoBehaviour {
 	protected Dictionary<ResourceType, float> CurrentOutput = 
             new Dictionary<string, float>();
 	protected List<Upgrade> Upgrades;
+
+    #endregion
 	
 	// Use this for initialization
 	void Start () {
+		
 	}
 	
 	#region Properties
@@ -31,16 +39,18 @@ public class Building : MonoBehaviour {
 		set;
 	}	
 	
+	#endregion
+	
 	public void updatePollution(){
 	}
 	public float updateEfficiency(){
 	}
 	public void updateOutput(){
-		Output = Output * Efficiency;
+        return 0.0f;
 	}
 	public void updateInput(){
 	}
 	
-	#endregion
+	
 
 }
