@@ -64,10 +64,11 @@ public class Building : MonoBehaviour
         flWork = XMLParser.XMLValueGroup.getProperty("work") * UpdateEfficiency(daniX, daniY);
         flPollution = XMLParser.XMLValueGroup.getProperty("pollution");
         */
-        
+        /*****Many Problems****
         Output.add(ResourceType.Energy, flEnergy);
         Output.add(ResourceType.Work, flWork);
         Output.add(ResourceType.Pollution, flPollution);
+        */
 	}
 	
 	public void updateInput()
