@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" ctype="Workspace" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MapGenTest/MainWindow.cs" ctype="Workbench">
+    <Files>
+      <File FileName="MapGenTest/Main.cs" Line="13" Column="11" />
+      <File FileName="MapGenTest/PerlinNoise.cs" Line="4" Column="2" />
+      <File FileName="MapGenTest/MainWindow.cs" Line="62" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches ctype="PinnedWatchStore" />
+</Properties>

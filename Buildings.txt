@@ -1,0 +1,17 @@
+Klasse erstellen: 
++UpdatePollution()
++double UpdateEfficiency(buildingID)
++UpdateOutput()
++UpdateInput()
+
+markus+bool TestBuilding(tile,buildingID) muss zurückgeben ob das jeweilige gebäude baubar ist
+
+markus+bool BuildBuiling(tile,buildingid)
+hier nochmal TestBuilding aufrufen
+
+
+
+timon: +bool LoadBuildings(string filepath) ist false bei fehler
+timon: +BuildingValues GetBuildingValues(ID) hier stehen output-input werte drin
+timon: +list GetBuildings() verfügbare gebäude
+
