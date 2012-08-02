@@ -85,16 +85,16 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
+		//int tempPollution = this.Pollution + this.CurrentBuilding.CurrentOutput[ResourceType.Pollution];
 	  
-	  	foreach(Tile t in this.map.GetEnvironmentTiles(this))
-	  	{
-	  		if(t.CurrentBuilding is PollutionReducer)
-	  		{
-	  			tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
-	  		}
-	  	}
-	  	this.Polluition = tempPollution;
+		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
+		//{
+		//    if(t.CurrentBuilding is PollutionReducer)
+		//    {
+		//        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
+		//    }
+		//}
+		//this.Polluition = tempPollution;
 	}
 	
 	// Initialization
@@ -110,6 +110,37 @@ public class Tile : MonoBehaviour
 	
 	public string Save()
 	{
-		
+		string json = "{";
+		json += "coords:[" +
+			this.Coords.x + "," +
+			this.Coords.y + "," +
+			"]," +
+			"type:" + Enum.GetName(typeof(TileType), this.Type) + "," +
+			"currentBuilding:" +
+				(this.CurrentBuilding == null ? "null" : this.getBuildingJson()) +				
+			"}";
+	}
+	
+	private string getBuildingJson()
+	{
+		string building = "{";
+		building += "type:" + this.CurrentBuilding.GetType().Name + "," +
+			"updates:[" +
+				this.getUpgradesString() +
+			"]}";
+	}
+	
+	private string getUpgradesString()
+	{
+		string temp = "";
+		foreach(Upgrade u in this.CurrentBuilding.Upgrades)
+		{
+			temp += "{" +
+				"type:" + ((object)u).GetType().Name + "," +
+				"level:" + 1 + //TODO get the actual level or name of the upgrade
+				"},";
+		}
+		temp = temp.Substring(0, temp.Length - 1);
+		return temp;
 	}
 }
