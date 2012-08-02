@@ -93,7 +93,7 @@ public abstract class Building : MonoBehaviour
 		
 		return Efficiency;
 	}
-	public void updateOutput(int daniX, int daniY)
+	public void updateOutput(int upoiX, int upoY)
 	{
         float[] ufreturn;
         float flEnergy;
@@ -102,7 +102,7 @@ public abstract class Building : MonoBehaviour
         double daytime;
 		float acttime = (float)gameManager.InGameTime; //In Minutes
 
-        ufreturn = updateEfficiency(daniX, daniY);
+        ufreturn = updateEfficiency(upoX, upoY);
         daytime = -0.5 * System.Math.Cos ((double)System.Math.PI / 720 * (acttime - 120)) + 1 + System.Math.Sin (0.01 * acttime);
 
         flEnergy = Output[ResourceType.Energy] * ufreturn[0];
@@ -117,9 +117,28 @@ public abstract class Building : MonoBehaviour
         CurrentOutput[ResourceType.Pollution] = flPollution;
 	}
 	
-	public void updateInput()
+	public void updateInput(int upoX, int upoY)
 	{
+        float[] ufreturn;
+        float flEnergy;
+        float flWork;
+        float flPollution;
+        double daytime;
+		float acttime = (float)gameManager.InGameTime; //In Minutes
+
+        ufreturn = updateEfficiency(upoX, upoY);
+        daytime = -0.5 * System.Math.Cos ((double)System.Math.PI / 720 * (acttime - 120)) + 1 + System.Math.Sin (0.01 * acttime);
+
+        flEnergy = Input[ResourceType.Energy] * ufreturn[0];
+        flEnergy = flEnergy * (float)daytime;
+        flWork = Input[ResourceType.Work] * ufreturn[1];
+		flWork = flWork * (float)daytime;
+        flPollution =Output[ResourceType.Pollution];
         
+        
+        CurrentInput[ResourceType.Energy] = flEnergy;
+        CurrentInput[ResourceType.Work] = flWork;
+        CurrentInput[ResourceType.Pollution] = flPollution;
 	}
 	
 	public abstract Type getBuildingType();
