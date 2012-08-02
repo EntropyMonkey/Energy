@@ -133,14 +133,7 @@ public class Tile : MonoBehaviour
 	
 	public void Build(int Id)
 	{
-<<<<<<< HEAD
-		/*GameObject newBuilding = (
-=======
-		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
-		
-		GameObject newBuilding = (
-=======
->>>>>>> 1ede93d5ba047577fe4b7a957398182575532f2e
+
 
 		Transform newBuilding = (Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
@@ -154,6 +147,7 @@ public class Tile : MonoBehaviour
 	public void RemoveBuilding()
 	{
 		// this.CurrentBuilding.Clear();
+		CurrentBuilding.transform.renderer.enabled = false;
 		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
