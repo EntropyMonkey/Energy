@@ -4,8 +4,8 @@ using System.Collections;
 public class CustomCamera : MonoBehaviour 
 {
 
-	public const float maxspeed = 1000.0f;
-	public const float acceleration = 250.0f;
+	public const float maxspeed = 100.0f;
+	public const float acceleration = 50.0f;
 	public const float deceleration = 0.1f;
 
 	public Bounds bounds;
