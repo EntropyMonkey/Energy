@@ -10,6 +10,9 @@ public class Tile : MonoBehaviour
 	// Map instance to get tiles around it
 	private Map map;
 	
+	// GameManager instance
+	private GameManager gameManager;
+	
 	public TileType Type
 	{
 		get
@@ -67,10 +70,72 @@ public class Tile : MonoBehaviour
 		set;
 	}
 	
-	// Builds a building on this tile
-	public void Build(int ID)
+	
+	
+	// Initialization
+	public void Start()
 	{
-		GameObject newBuilding = Instantiate(GameObject.Find("Main Camera").GetComponent<GameManager>().prefabs[ID]) as GameObject;
+		isFree = true;
+		Pullution = 0;
+		Vector3 size = transform.localScale;
+		Size = new Vector2(size.x, size.z);
+		//GameObject mapObject = GameObject.Find("Map");
+		//map = mapObject.GetComponent<Map>();
+		
+		gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
+	}
+	
+	public string Save()
+	{
+		string json = "{";
+		json += "coords:[" +
+			this.Coords.x + "," +
+			this.Coords.y + "," +
+			"]," +
+			"type:\"" + Enum.GetName(typeof(TileType), this.Type) + "\"," +
+			"pollution:" + this.Pullution + "," + 
+			"currentBuilding:" +
+				(this.CurrentBuilding == null ? "\"null\"" : this.getBuildingJson()) +				
+			"}";
+		return json;
+	}
+	
+	private string getBuildingJson()
+	{
+	//	string building = "{";
+	//	building += "type:" + this.CurrentBuilding.ID + "," + // TODO: Check for id
+	//		"upgrades:[" +
+	//			this.getUpgradesString() +
+	//		"]}";
+	//	return building;
+		return "";
+	}
+	
+	private void Update()
+	{
+		if (Input.GetMouseButtonUp(0))
+		{
+			Build(0);	
+		}
+	}
+	
+	private string getUpgradesString()
+	{
+		string temp = "";
+		foreach(Upgrade u in this.CurrentBuilding.Upgrades)
+		{
+			temp += "\"" + u.GetType().Name + ":" + 1 + "\",";//TODO get actual level or name of upgrade
+		}
+		if(temp.Length > 1)
+			temp = temp.Substring(0, temp.Length - 1);
+		return temp;
+	}// Builds a building on this tile
+	public void Build(int Id)
+	{
+		GameObject newBuilding = (
+			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
+			as Transform).gameObject;
+		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
 	}
@@ -96,54 +161,6 @@ public class Tile : MonoBehaviour
 		//    }
 		//}
 		//this.Polluition = tempPollution;
-	}
-	
-	// Initialization
-	public void Start()
-	{
-		this.isFree = true;
-		this.Pullution = 0;
-		Vector3 size = transform.localScale;
-		this.Size = new Vector2(size.x, size.z);
-		GameObject mapObject = GameObject.Find("Map");
-		this.map = mapObject.GetComponent<Map>();
-	}
-	
-	public string Save()
-	{
-		string json = "{";
-		json += "coords:[" +
-			this.Coords.x + "," +
-			this.Coords.y + "," +
-			"]," +
-			"type:\"" + Enum.GetName(typeof(TileType), this.Type) + "\"," +
-			"pollution:" + this.Pullution + "," + 
-			"currentBuilding:" +
-				(this.CurrentBuilding == null ? "\"null\"" : this.getBuildingJson()) +				
-			"}";
-		return json;
-	}
-	
-	private string getBuildingJson()
-	{
-		string building = "{";
-		building += "type:" + this.CurrentBuilding.ID + "," + // TODO: Check for id
-			"upgrades:[" +
-				this.getUpgradesString() +
-			"]}";
-		return building;
-	}
-	
-	private string getUpgradesString()
-	{
-		string temp = "";
-		foreach(Upgrade u in this.CurrentBuilding.Upgrades)
-		{
-			temp += "\"" + u.GetType().Name + ":" + 1 + "\",";//TODO get actual level or name of upgrade
-		}
-		if(temp.Length > 1)
-			temp = temp.Substring(0, temp.Length - 1);
-		return temp;
 	}
 	
 	public void Load(string json)
@@ -179,9 +196,9 @@ public class Tile : MonoBehaviour
 				Debug.Log(e.Message);
 			}
 			json = json.Substring(json.IndexOf("[") + 1, json.Length - 1);
-			foreach(string upgrade in json.Split(","))
+			foreach(string upgrade in json.Split(','))
 			{
-				string upgradeSplit = upgrade.Split(":");
+				string[] upgradeSplit = upgrade.Split(':');
 				string upgradeType = upgradeSplit[0];
 				try
 				{
@@ -200,7 +217,7 @@ public class Tile : MonoBehaviour
 	private Vector2 StringToVector2(string json)
 	{
 		json = json.Replace("[", "").Replace("]","");
-		string[] pos = json.Split(",");
+		string[] pos = json.Split(',');
 		try
 		{
 			int x = int.Parse(pos[0]);
@@ -211,6 +228,6 @@ public class Tile : MonoBehaviour
 		{
 			Debug.Log(e.Message);
 		}
-		return null;
+		return Vector2.zero;
 	}
 }

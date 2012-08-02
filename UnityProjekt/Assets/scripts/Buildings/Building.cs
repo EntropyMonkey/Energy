@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public class Building : MonoBehaviour
 {
     public enum ResourceType { Energy, Work, Pollution };
+	public enum Type {};
+	
     #region Vars
 
     protected Tile tileRef;
@@ -18,7 +20,7 @@ public class Building : MonoBehaviour
     protected Dictionary<ResourceType, float> CurrentInput;
     protected Dictionary<ResourceType, float> CurrentOutput;
      
-	protected List<Upgrade> Upgrades;
+	public List<Upgrade> Upgrades;
 
     #endregion
 	
@@ -50,7 +52,7 @@ public class Building : MonoBehaviour
 	
 	public float[] updateEfficiency(int uex, int uey)
 	{
-		int[] Efficiency = new int[3]; //Effizienz werte 0...2 Energy, Work, Pollution
+		float[] Efficiency = new float[3]; //Effizienz werte 0...2 Energy, Work, Pollution
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
 		Tile currenttile = ma.GetTileFromPosition(uex, uey);
