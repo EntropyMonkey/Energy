@@ -83,21 +83,23 @@ public class Map : MonoBehaviour {
 
 	public Dictionary<Building.ResourceType, float> getTotalValues()
 	{
-		Dictionary<string, double> returnVal;
-		double power = 0, work = 0, pollution= 0;
+		Dictionary<Building.ResourceType, float> returnVal = new Dictionary<Building.ResourceType, float>();
+		float power = 0, work = 0, pollution= 0;
 		for (int x = 0; x < MapSize; x++) {
 			for (int y = 0; y < MapSize; y++) {
-				Building b = Tiles[x,y].CurrentBuilding();
-				Dictonary<RessourceType, float> outval = b.updateOutput();
-				Dictonary<RessourceType, float> inval = b.updateInput();
-				power += outval[Building.Power] - inval[Building.Power];
-				work += outval[Building.Work] - inval[Building.Work];
-				pollution += outval[Building.Pollution] - inval[Building.Pollution];
+				Building b = Tiles[x,y].CurrentBuilding;
+				Dictionary<Building.ResourceType, float> outval = new Dictionary<Building.ResourceType, float>();
+				Dictionary<Building.ResourceType, float> inval = new Dictionary<Building.ResourceType, float>();
+				outval = b.updateOutput();
+				inval = b.updateInput();
+				power += outval[Building.ResourceType.Power] - inval[Building.ResourceType.Power];
+				work += outval[Building.ResourceType.Work] - inval[Building.ResourceType.Work];
+				pollution += outval[Building.ResourceType.Pollution] - inval[Building.ResourceType.Pollution];
 			}
 		}
-		returnVal[Building.Power] = power;
-		returnVal[Building.Work] = work;
-		returnVal[Building.Pollution] = pollution;
+		returnVal[Building.ResourceType.Power] = power;
+		returnVal[Building.ResourceType.Work] = work;
+		returnVal[Building.ResourceType.Pollution] = pollution;
 		return returnVal;
 	}
 	
