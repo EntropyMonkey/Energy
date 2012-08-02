@@ -48,8 +48,10 @@ public class Building : MonoBehaviour
 	{
 	}
 	
-	public float updateEfficiency()
+	public float updateEfficiency(int[] BuildCoords)
 	{
+		
+		
 		return 0.0f;
 	}
 	public void updateOutput()
