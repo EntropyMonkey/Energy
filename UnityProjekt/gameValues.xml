@@ -3,7 +3,7 @@
 	<building>
 		<type>House</type>
 		<name>Einfamilienhaus</name>
-		<prefab>FamilyHouse</prefab>
+		<identifier>FamilyHouse</identifier>
 		
 		<properties>
 		</properties>
@@ -22,7 +22,7 @@
 	<building>
 		<type>Storage</type>
 		<name>Batterie</name>
-		<prefab>Battery</prefab>
+		<identifier>Battery</identifier>
 		
 		<properties>
 			<item type="capacity" value="10000" />
