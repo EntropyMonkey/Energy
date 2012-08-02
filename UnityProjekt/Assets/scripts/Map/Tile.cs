@@ -67,10 +67,11 @@ public class Tile : MonoBehaviour
 	}
 	
 	// Builds a building on this tile
-	public void Build(Building inBuilding)
+	public void Build(Transform inBuilding)
 	{
-		this.CurrentBuilding = inBuilding;
-		this.isFree = false;
+		GameObject newBuilding = Instantiate(inBuilding);
+		CurrentBuilding = newBuilding.GetComponent<Building>();
+		isFree = false;
 	}
 	
 	// Removes the current building from this tile

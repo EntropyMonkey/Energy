@@ -39,12 +39,19 @@ public class Building : MonoBehaviour
 		set;
 	}	
 	
+	void Update()
+	{
+		
+	}
+	
 	public void updatePollution()
 	{
 	}
 	
-	public float updateEfficiency()
+	public float updateEfficiency(int[] BuildCoords)
 	{
+		
+		
 		return 0.0f;
 	}
 	public void updateOutput()
