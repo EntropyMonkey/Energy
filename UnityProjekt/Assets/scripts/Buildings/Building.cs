@@ -79,7 +79,7 @@ public class Building : MonoBehaviour
         float flWork;
         float flPollution;
 
-        ufreturn = UpdateEfficiency(daniX, daniY);
+        ufreturn = updateEfficiency(daniX, daniY);
 
         flEnergy = Output[ResourceType.Energy] * ufreturn[0];
         flWork = Output[ResourceType.Work] * ufreturn[1];
