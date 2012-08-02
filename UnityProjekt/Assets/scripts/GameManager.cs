@@ -7,11 +7,6 @@ using XMLParser;
 // instance at all
 public class GameManager : MonoBehaviour 
 {
-	//public GameManager Instance
-	//{
-	//    get
-	//    {
-	//        if (instance == null)
 
 	//        return instance;
 	//    }
@@ -25,15 +20,20 @@ public class GameManager : MonoBehaviour
 
 	//TODO add UI
 
-	public List<GameObject> prefabs;
+	public List<GameObject> Prefabs;
 	public List<XMLParser.Building> Buildings;
+	
+	public float InGameTime = 720.0f;
 	
 	//TODO add map
 
 	// Use this for initialization
 	void Start () 
 	{
+<<<<<<< HEAD
 		prefabs = new List<GameObject>();
+=======
+>>>>>>> 3bdbcabb03fc4b32523ab1b4d04473a69295c206
 		Buildings = new List<XMLParser.Building>();
 		//read game values xml data
 		Parser parser = new Parser("gamevalues.xml");
@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 		//TODO update UI
+		InGameTime += Time.deltaTime * 8.0f;
+		if (InGameTime >= 1440) InGameTime -= 1440.0f;
 	}
 	
 	
