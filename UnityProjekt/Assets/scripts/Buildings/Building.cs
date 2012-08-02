@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// <summary>
 /// A building placed by the user.
 /// </summary>
-public class Building : MonoBehaviour
+public abstract class Building : MonoBehaviour
 {
     public enum ResourceType { Energy, Work, Pollution };
 	public enum Type { House, NuclearPowerplant, CoalPowerplant, WaterPowerplant, 
@@ -104,10 +104,7 @@ public class Building : MonoBehaviour
         
 	}
 	
-	public abstract Type getBuildingType()
-	{
-		
-	}
+	public abstract Type getBuildingType();
 	
 	
 	#endregion
