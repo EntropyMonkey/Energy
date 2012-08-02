@@ -18,10 +18,10 @@ public abstract class Building : MonoBehaviour
     protected Tile tileRef;
 	protected bool isEnabled;
     protected GameManager gameManager;
-    protected Dictionary<ResourceType, float> Input;
-    protected Dictionary<ResourceType, float> Output;
-    protected Dictionary<ResourceType, float> CurrentInput;
-    protected Dictionary<ResourceType, float> CurrentOutput;
+    protected Dictionary<ResourceType, float> input;
+    protected Dictionary<ResourceType, float> output;
+    protected Dictionary<ResourceType, float> currentInput;
+    protected Dictionary<ResourceType, float> currentOutput;
      
 	public List<Upgrade> Upgrades;
 
@@ -30,10 +30,10 @@ public abstract class Building : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        Input = new Dictionary<ResourceType, float>();
-        Output = new Dictionary<ResourceType, float>();
-        CurrentInput = new Dictionary<ResourceType, float>();
-        CurrentOutput = new Dictionary<ResourceType, float>();
+        input = new Dictionary<ResourceType, float>();
+        output = new Dictionary<ResourceType, float>();
+        currentInput = new Dictionary<ResourceType, float>();
+        currentOutput = new Dictionary<ResourceType, float>();
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
@@ -58,7 +58,7 @@ public abstract class Building : MonoBehaviour
 		{
 			if(i == 0) // Berechnung der Power Effizienz
 			{
-				switch(currentTile.CurrentBuilding.Type)
+				switch(currentTile.CurrentBuilding.getBuildingType())
 				{
 					
 				case Type.WaterPowerplant:	
@@ -104,30 +104,34 @@ public abstract class Building : MonoBehaviour
 		return Efficiency;
 	}
 	
-	public void updateOutput(int inX, int inY)
+	public Dictionary<ResourceType, float> updateOutput(int inX, int inY)
 	{
         float[] ufreturn = updateEfficiency(inX, inY);
-        float flPower = Output[ResourceType.Power] * ufreturn[0];
-        float flWork = Output[ResourceType.Work] * ufreturn[1];
-        float flPollution = Output[ResourceType.Pollution];
+        float flPower = output[ResourceType.Power] * ufreturn[0];
+        float flWork = output[ResourceType.Work] * ufreturn[1];
+        float flPollution = output[ResourceType.Pollution];
         //double daytime = -0.5 * System.Math.Cos (Math.PI / 720.0 * (Convert.ToDouble(gameManager.InGameTime) - 120)) + 1 + System.Math.Sin (0.01 * Convert.ToDouble(gameManager.InGameTime));
         
-        CurrentOutput[ResourceType.Power] = flPower;
-        CurrentOutput[ResourceType.Work] = flWork;
-        CurrentOutput[ResourceType.Pollution] = flPollution;
+        currentOutput[ResourceType.Power] = flPower;
+        currentOutput[ResourceType.Work] = flWork;
+        currentOutput[ResourceType.Pollution] = flPollution;
+		
+		return currentOutput;
 	}
 	
-	public void updateInput(int inX, int inY)
+	public Dictionary<ResourceType, float> updateInput(int inX, int inY)
 	{
         float[] ufreturn = updateEfficiency(inX, inY);
-        float flPower = Input[ResourceType.Power] * ufreturn[0];
-        float flWork = Input[ResourceType.Work] * ufreturn[1];
-        float flPollution = Output[ResourceType.Pollution];
+        float flPower = input[ResourceType.Power] * ufreturn[0];
+        float flWork = input[ResourceType.Work] * ufreturn[1];
+        float flPollution = input[ResourceType.Pollution];
         
         
-        CurrentInput[ResourceType.Power] = flPower;
-        CurrentInput[ResourceType.Work] = flWork;
-        CurrentInput[ResourceType.Pollution] = flPollution;
+        currentInput[ResourceType.Power] = flPower;
+        currentInput[ResourceType.Work] = flWork;
+        currentInput[ResourceType.Pollution] = flPollution;
+		
+		return currentInput;
 	}
 	
 	public abstract Type getBuildingType();
