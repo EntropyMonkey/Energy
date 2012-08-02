@@ -136,6 +136,7 @@ public class Tile : MonoBehaviour
 	public void RemoveBuilding()
 	{
 		// this.CurrentBuilding.Clear(); //TODO
+		CurrentBuilding.transform.renderer.enabled = false;
 		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
