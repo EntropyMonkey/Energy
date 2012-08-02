@@ -15,6 +15,7 @@ public class Map : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.CreateMap();
+		//this.SaveMap();
 	}
 	
 	// Update is called once per frame
@@ -29,32 +30,33 @@ public class Map : MonoBehaviour {
 	
 	
 	public void LoadMap() {
-		
+		// split("},");
 		
 	}
 	
 	public void SaveMap() {
-		string jsonMap = "";
-		string fileName = "energysave_" + DateTime.Now.ToShortDateString() + ".json";
-		
+		DateTime dt = DateTime.Now;
+		string fileName = "energysave_" + String.Format("{0:hh-mm-ss_dd-MM-yyyy}", dt) + ".json";
+		List<String> jsonList = new List<String>();
 		
 		try{
 			for(int y = 0; y < MapSize; y++)
 			{
 				for(int x = 0; x < MapSize; x++)
 				{
-					jsonMap += Tiles[x, y].Save();
+					jsonList.Add(Tiles[x, y].Save());
 				}
 			}
-			Debug.Log(fileName);
-			Debug.Log(jsonMap);
+			
+			Debug.Log("Saving Map to " + fileName);
+			fileWriter = new StreamWriter(fileName, false);
+			fileWriter.WriteLine("[" + String.Join(",\n", jsonList.ToArray()) + "]");
+			fileWriter.Close();
+			Debug.Log("Save completed");
 			
 		}catch(Exception e){
 			Debug.Log("Map Save failed!");	
 		}
-		
-		
-		
 	}
 	
 	
@@ -163,7 +165,7 @@ public class Map : MonoBehaviour {
 				}
 			}
 		}
-		return r;	
+		return r;
 	}
 	
 	public List<Tile> GetEnvironmentTiles(int tx, int ty) {
@@ -176,7 +178,7 @@ public class Map : MonoBehaviour {
 				}
 			}
 		}
-		return r;	
+		return r;
 	}
 	
 }
