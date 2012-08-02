@@ -82,7 +82,7 @@ public class Tile : MonoBehaviour
 		//GameObject mapObject = GameObject.Find("Map");
 		//map = mapObject.GetComponent<Map>();
 		
-		gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	public string Save()
@@ -115,7 +115,7 @@ public class Tile : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp(0))
 		{
-			Build(0);	
+			Build(1);	
 		}
 	}
 	
@@ -130,11 +130,14 @@ public class Tile : MonoBehaviour
 			temp = temp.Substring(0, temp.Length - 1);
 		return temp;
 	}// Builds a building on this tile
+	
 	public void Build(int Id)
 	{
+		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
+		
 		GameObject newBuilding = (
 			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
-			as Transform).gameObject;
+			as GameObject);
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
