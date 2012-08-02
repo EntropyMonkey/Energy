@@ -133,21 +133,14 @@ public class Tile : MonoBehaviour
 	
 	public void Build(int Id)
 	{
-<<<<<<< HEAD
-		/*GameObject newBuilding = (
-=======
-		UnityEngine.Object ob = Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity);
-		
-		GameObject newBuilding = (
 
->>>>>>> b8d98b52d46fc62e087032bcfb603e35d3139e78
-			Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
+		Transform newBuilding = (Instantiate(gameManager.Prefabs[Id], transform.position, Quaternion.identity) 
 			as Transform).gameObject;
 
 		
 		CurrentBuilding = newBuilding.GetComponent<Building>();
 		isFree = false;
-	*/}
+	}
 	
 	// Removes the current building from this tile
 	public void RemoveBuilding()
