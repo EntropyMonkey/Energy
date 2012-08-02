@@ -29,8 +29,7 @@ public class Tile : MonoBehaviour
 			if(textures.GetTextureByType(this.type) != null)
 			{
 				// Set the texture
-				Transform cube = transform.Find("Cube");
-				cube.renderer.material.mainTexture = textures.GetTextureByType(value);
+				renderer.material.mainTexture = textures.GetTextureByType(value);
 			}
 		}
 	}
@@ -79,7 +78,7 @@ public class Tile : MonoBehaviour
 		this.Pollution = 0;
 		Vector3 size = transform.localScale;
 		this.Size = new Vector2(size.x, size.z);
-		GameObject mapObject = GameObject.Find("Map");
+		GameObject mapObject = GameObject.Find("GameManager");
 		map = mapObject.GetComponent<Map>();
 		
 		this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
