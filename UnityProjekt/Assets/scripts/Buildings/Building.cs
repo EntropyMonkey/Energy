@@ -55,8 +55,8 @@ public class Building : MonoBehaviour
 		float[] Efficiency = new float[3]; //Effizienz werte 0...2 Energy, Work, Pollution
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(uex, uey);
-		//Tile currenttile = ma
-		
+		Tile currenttile = ma.GetTileFromPosition(uex, uey);
+		//int currentTileType
 		
 		for(int i=0; i<=1; i++)
 		{

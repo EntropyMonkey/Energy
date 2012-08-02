@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using XMLParser;
 
 // The game manager is a singleton, which means that there can only be one
 // instance at all
@@ -18,14 +19,17 @@ public class GameManager : MonoBehaviour
 
 	// prefabs for instantiating buildings, string->identifier from xml
 	public List<Transform> Prefabs;
+	public List<XmlParser.Building> Buildings;
 	
 	//TODO add map
 
 	// Use this for initialization
 	void Start () 
 	{
-		
-		//TODO create name/id dictionary
+		Prefabs = new List<GameObject>();
+		//read game values xml data
+		Parser parser = new Parser("gamevalues.xml");
+		Buildings = parser.Buildings;
 		
 		//TODO create UI
 
