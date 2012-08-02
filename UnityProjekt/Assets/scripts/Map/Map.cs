@@ -34,7 +34,7 @@ public class Map : MonoBehaviour {
 			fileReader = new StreamReader(fileName);
 			string mapStr = fileReader.ReadToEnd();
 			fileReader.Close();
-			List<string> mapList = mapStr.Split("},");
+			List<string> mapList = new List<string>(mapStr.Split(("},").ToCharArray()));
 			
 			//TODO: Clear Map if Tiles already exist
 			
@@ -42,9 +42,11 @@ public class Map : MonoBehaviour {
 				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
 				Tile t = buffer.GetComponent<Tile>();
 				t.Load(s);
-				buffer.name = "Tile_" + t.Coords.x + "_" + t.Coords.y;
-				buffer.transform.position = new Vector3(t.Coords.x, 0, t.Coords.y);
-				this.Tiles[t.Coords.x, t.Coords.y] = t;
+				int tileX = (int)t.Coords.x;
+				int tileY = (int)t.Coords.y;
+				buffer.name = "Tile_" + tileX + "_" + tileY;
+				buffer.transform.position = new Vector3(tileX, 0, tileY);
+				this.Tiles[tileX, tileY] = t;
 			}
 			
 		}catch(Exception e){
