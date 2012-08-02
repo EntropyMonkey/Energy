@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 
 public class Tile : MonoBehaviour
@@ -119,8 +120,9 @@ public class Tile : MonoBehaviour
 			"currentBuilding:" +
 				(this.CurrentBuilding == null ? "null" : this.getBuildingJson()) +				
 			"}";
+		return json;
 	}
-	
+
 	private string getBuildingJson()
 	{
 		string building = "{";
@@ -128,6 +130,7 @@ public class Tile : MonoBehaviour
 			"updates:[" +
 				this.getUpgradesString() +
 			"]}";
+		return building;
 	}
 	
 	private string getUpgradesString()
