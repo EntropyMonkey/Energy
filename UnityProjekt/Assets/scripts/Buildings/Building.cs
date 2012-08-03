@@ -47,10 +47,10 @@ public abstract class Building : MonoBehaviour
 		tileRef.Pollution += this.currentValues[ResourceType.Pollution] * (double)Time.deltaTime;
 	}
 	
-	public float updateEfficiency() //Effizienz werte 0...2 , Work, Pollution
+	public double updateEfficiency() //Effizienz werte 0...2 , Work, Pollution
 	{
-		float Efficiency;
-		double CurrentTileEfficiency;
+		double Efficiency = 0.5;
+		double CurrentTileEfficiency = 0;
 		bool[] Surroundings = new bool[3]; // 0 = Gewässer in der nähe, 1 = Gebirge in der Nähe, 2 = ThermischesKW in der Nähe
 		
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
@@ -61,35 +61,39 @@ public abstract class Building : MonoBehaviour
 		switch(currentTile.Type)
 		{
 		case TileType.Desert:
-			CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDesert");
+			CurrentTileEfficiency += gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDesert");
 			break;
 				
 		case TileType.Grassland:
-			CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDGrassland");
+			CurrentTileEfficiency += gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDGrassland");
 			break;
 			
 		case TileType.Mountain:
-			CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effMountain");
+			CurrentTileEfficiency += gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effMountain");
 			break;
 			
 		case TileType.River:
-			CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effRiver");
+			CurrentTileEfficiency += gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effRiver");
 			break;
 			
 		case TileType.Sea:
-			CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effSea");
+			CurrentTileEfficiency += gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effSea");
 			break;
 		}
 
 		//auslesen der umgebung
 		for(int i=0; i<=7; i++)
 		{
-			switch(tilelist[i].CurrentBuilding.Type)
+			switch(tilelist[i].CurrentBuilding.getBuildingType())
 			{
-				case Type.CoalPowerplant || Type.NuclearPowerplant || Type.BioPowerplant || Type.FusionPowerplant:
-					if(currentTile.CurrentBuilding.Type.House == "House")
+				case Type.CoalPowerplant:
+				case Type.NuclearPowerplant:
+				case Type.BioPowerplant:
+				case Type.FusionPowerplant:
+				case Type.Forest:
+					if(currentTile.CurrentBuilding.getBuildingType() == Type.House || currentTile.CurrentBuilding.getBuildingType() == Type.Forest )
 					{
-						CurrentTileEfficiency = CurrentTileEfficiency + gameManager.Buildings[0].Values.getProperty("effThermic");
+						Efficiency = CurrentTileEfficiency + gameManager.Buildings[0].Values.getProperty("effThermic");
 					}
 				break;
 			}
@@ -105,7 +109,10 @@ public abstract class Building : MonoBehaviour
 	
 	protected void updateValues()
 	{
-		float[] ufreturn = updateEfficiency();
+		Map ma = GameObject.Find("Map").GetComponent<Map>();
+		Tile currentTile = ma.GetTileFromPosition(Convert.ToInt32(tileRef.Coords.x), Convert.ToInt32(tileRef.Coords.y));
+		
+		double ufreturn = updateEfficiency();
 		XMLParser.ValueGroup values = gameManager.Buildings[(int)getBuildingType()].Values;
 		
 		currentValues.Clear();
@@ -126,9 +133,15 @@ public abstract class Building : MonoBehaviour
 		}
 		
 		// FIXME: Upgrades
+		if(currentTile.CurrentBuilding.getBuildingType() == Type.House)
+		{
+			currentValues[ResourceType.Work] *= ufreturn;
+		}
+		else
+		{
+		currentValues[ResourceType.Power] *= ufreturn;
+		}
 		
-		currentValues[ResourceType.Power] *= ufreturn[0];
-		currentValues[ResourceType.Work] *= ufreturn[1];
 	}
 	
 	public abstract void applyUpgrade();
