@@ -17,4 +17,9 @@ public class Forest : Building {
 	{
 		return Type.Forest;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }

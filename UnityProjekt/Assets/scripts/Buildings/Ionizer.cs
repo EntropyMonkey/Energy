@@ -17,4 +17,9 @@ public class Ionizer : Building {
 	{
 		return Type.Ionizer;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }
