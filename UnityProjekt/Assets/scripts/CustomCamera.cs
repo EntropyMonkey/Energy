@@ -7,11 +7,13 @@ public class CustomCamera : MonoBehaviour
 	public const float maxspeed = 100.0f;
 	public const float acceleration = 50.0f;
 	public const float deceleration = 0.1f;
+	public float mapsize = 50f;
+	public float maxscroll = 400f;
+	public float minscroll = 100f;
 
 	public Bounds bounds;
 
 	private Vector3 velocity;
-
 	//the minimum mouse position at which no scrolling happens
 	public Vector2 minMousePositon = new Vector2();
 	//the maximum mouse position at which no scrolling happens
@@ -74,10 +76,34 @@ public class CustomCamera : MonoBehaviour
 		velocity += direction *acceleration *Time.deltaTime;
 		//if the camera moves too fast, clamp its speed 
 		if (velocity.sqrMagnitude> maxspeed * maxspeed)
+		{
 			velocity =velocity.normalized * maxspeed;
-
+		}
 		transform.position += velocity * Time.deltaTime;
-	}
+		
+		
+		Vector3 newPosMove = transform.position;	
+		//wenn die Postion der X-Achse gröser ist als 50
+		if (transform.position.x > mapsize)
+		{
+			newPosMove.x = mapsize;
+		}
+		//wenn die Postion der X-Achse kleiner ist als 0 
+		else if (transform.position.x < 0)
+		{
+			newPosMove.x = 0;
+		}
+		
+		if (transform.position.z > mapsize)
+		{
+			newPosMove.z = mapsize;
+		}
+		else if (transform.position.z < 0)
+		{
+			newPosMove.z = 0;
+		}
+		transform.position = newPosMove;
+		}
 
 	void UpdateScroll()
 	{			
@@ -91,6 +117,17 @@ public class CustomCamera : MonoBehaviour
 		{
 			direction = new Vector3 (0,-200,0);
 		}
+		
+		Vector3 newPosScroll = transform.position;		
+		if (transform.position.y > maxscroll)
+		{
+			newPosScroll.y = maxscroll;
+		}
+		else if (transform.position.y < minscroll)
+		{
+			newPosScroll.y = minscroll;
+		}
+		transform.position = newPosScroll;
 		//else 
 		//{
 		//	direction = -velocity * deceleration;
@@ -103,5 +140,6 @@ public class CustomCamera : MonoBehaviour
 		
 
 		transform.position += direction * Time.deltaTime;
+		
 	}
 }
