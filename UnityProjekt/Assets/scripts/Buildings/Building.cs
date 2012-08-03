@@ -13,17 +13,19 @@ public abstract class Building : MonoBehaviour
 		SolarPowerplant, BioPowerplant, WindPowerplant, FusionPowerplant,
 		PumpedStoragePowerStation, FuelCell, Battery, Forest, Ionizer, NuclearRepository };
 	
-    #region Vars
-
     protected Tile tileRef;
 	protected bool isEnabled;
     protected GameManager gameManager;
     public Dictionary<ResourceType, double> currentValues;
     //public Dictionary<ResourceType, float> currentOutput;
-     
+
 	public List<Upgrade> Upgrades;
 
-    #endregion
+	public bool IsEnabled
+	{
+		get;
+		set;
+	}
 	
 	// Use this for initialization
 	void Start () 

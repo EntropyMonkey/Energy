@@ -1,0 +1,59 @@
+<?xml version='1.0'?>
+<buildings>
+	<building>
+		<type>House</type>
+		<name>Einfamilienhaus</name>
+		<identifier>FamilyHouse</identifier>
+		
+		<properties>
+		</properties>
+		
+		<active>
+			<item type="power" value="-10" />
+			<item type="work" value="4" />
+		</active>
+		<passive>
+		</passive>
+		<construct time="300">
+			<item type="power" value="-50" />
+			<item type="work" value="-2" />
+		</construct>
+	</building>
+	<building>
+		<type>Storage</type>
+		<name>Batterie</name>
+		<identifier>Battery</identifier>
+		
+		<properties>
+			<item type="capacity" value="10000" />
+			<item type="efficiency" value="0.4" />
+			<item type="chargingVelocity" value="50" />
+			<item type="dischargingVelocity" value="250" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="300">
+			<item type="power" value="-200" />
+			<item type="work" value="-5" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name>Speichererweiterung</name>
+				<properties>
+					<item type="capacity" value="5000" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name>Power-Controller</name>
+				<properties>
+					<item type="chargingVelocity" value="25" />
+					<item type="dischargingVelocity" value="50" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+</buildings>
