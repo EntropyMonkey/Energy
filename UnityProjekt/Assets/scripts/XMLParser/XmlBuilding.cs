@@ -11,6 +11,9 @@ namespace XMLParser
 		Storage
 	};
 	
+	/// <summary>
+	/// The start values (which are not dependent on location) for each building type are stored in this structure.
+	/// </summary>
 	public class Building
 	{
 		public BuildingTypes Type;
