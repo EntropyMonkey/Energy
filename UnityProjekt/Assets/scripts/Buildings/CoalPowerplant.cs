@@ -17,4 +17,9 @@ public class CoalPowerplant : Building {
 	{
 		return Type.CoalPowerplant;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }
