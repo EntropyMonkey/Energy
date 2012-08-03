@@ -3,9 +3,10 @@
 	<building> <!--Haus-->
 		<type>House</type>
 		<name>Einfamilienhaus</name>
-		<identifier>FamilyHouse</identifier>
+		<identifier>House</identifier>
 		
 		<properties>
+			<item type="effthermic" value="-0.8" />
 		</properties>
 		
 		<active>
@@ -21,8 +22,8 @@
 	</building>
 	<building> <!--NuclearPowerplant-->
 	
-		<type>NuclearPowerplant</type>
-		<name>NuclearPowerplant</name>
+		<type>Powerplant</type>
+		<name>Atomkraftwerk</name>
 		<identifier>NuclearPowerplant</identifier>
 		
 		<properties>
@@ -38,19 +39,20 @@
 		<passive>
 		</passive>
 		<construct time="0">
-			<item type="0" value="0" />
-			<item type="0" value="0" />
+			<item type="work" value="0" />
+			<item type="power" value="0" />
 		</construct>
 		
 		<upgrades>
 			<upgrade>
-				<name></name>
+				<name>Stufe 2</name>
 				<properties>
+					<item type="" value="" />
 					<item type="" value="" />
 				</properties>
 			</upgrade>
 			<upgrade>
-				<name></name>
+				<name>Stufe 3</name>
 				<properties>
 					<item type="" value="" />
 					<item type="" value="" />
@@ -99,9 +101,9 @@
 	</building>
 	<building> <!--Wasserkraftwerk-->
 	
-		<type></type>
-		<name></name>
-		<identifier></identifier>
+		<type>Powerplant</type>
+		<name>Wasserkraftwerk</name>
+		<identifier>WaterPowerplant</identifier>
 		
 		<properties>
 			<item type="effdesert" value="0" />
@@ -109,6 +111,237 @@
 			<item type="effsea" value="1" />
 			<item type="effriver" value="1" />
 			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Solarkraftwerk-->
+	
+		<type>Powerplant</type>
+		<name>Solarkraftwerk</name>
+		<identifier>SolarPowerplant</identifier>
+		
+		<properties>
+			<item type="effdesert" value="1" />
+			<item type="effgrassland" value="0.5" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Biogaskraftwerk-->
+	
+		<type>Powerplant</type>
+		<name>Biogaskraftwerk</name>
+		<identifier>BioPowerplant</identifier>
+		
+		<properties>
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Windkraftwerk-->
+	
+		<type>Powerplant</type>
+		<name>Windkraftwerk</name>
+		<identifier>WindPowerplant</identifier>
+		
+		<properties>
+			<item type="effdesert" value="1" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="1" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="0.5" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Fusionskraftwerk-->
+	
+		<type>Powerplant</type>
+		<name>Fusionskraftwerk</name>
+		<identifier>FusionPowerplant</identifier>
+		
+		<properties>
+			<item type="effdesert" value="1" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="1" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Pumpspeicherkraftwerk-->
+	
+		<type>Storage</type>
+		<name>Pumpspeicherkreftwerk</name>
+		<identifier>PumpedStoragePowerStation</identifier>
+		
+		<properties>
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="0" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="1" />
+			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Brennstoffzelle-->
+	
+		<type>Storage</type>
+		<name>Brennstoffzelle</name>
+		<identifier>FuelCell</identifier>
+		
+		<properties>
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="1" />
 		</properties>
 		
 		<active>
@@ -147,6 +380,144 @@
 			<item type="efficiency" value="0.4" />
 			<item type="chargingVelocity" value="50" />
 			<item type="dischargingVelocity" value="250" />
+			
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="1" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="300">
+			<item type="power" value="-200" />
+			<item type="work" value="-5" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name>Speichererweiterung</name>
+				<properties>
+					<item type="capacity" value="5000" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name>Power-Controller</name>
+				<properties>
+					<item type="chargingVelocity" value="25" />
+					<item type="dischargingVelocity" value="50" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Wald-->
+	
+		<type>PollutionReducer</type>
+		<name>Wald</name>
+		<identifier>Forest</identifier>
+		
+		<properties>
+			<item type="capacity" value="10000" />
+			<item type="efficiency" value="0.4" />
+			<item type="chargingVelocity" value="50" />
+			<item type="dischargingVelocity" value="250" />
+			
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="1" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="300">
+			<item type="power" value="-200" />
+			<item type="work" value="-5" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name>Speichererweiterung</name>
+				<properties>
+					<item type="capacity" value="5000" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name>Power-Controller</name>
+				<properties>
+					<item type="chargingVelocity" value="25" />
+					<item type="dischargingVelocity" value="50" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Ionisierer-->
+	
+		<type>PollutionReducer</type>
+		<name>Ionisierer</name>
+		<identifier>Ionizer</identifier>
+		
+		<properties>
+			<item type="capacity" value="10000" />
+			<item type="efficiency" value="0.4" />
+			<item type="chargingVelocity" value="50" />
+			<item type="dischargingVelocity" value="250" />
+			
+			<item type="effdesert" value="1" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="1" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="300">
+			<item type="power" value="-200" />
+			<item type="work" value="-5" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name>Speichererweiterung</name>
+				<properties>
+					<item type="capacity" value="5000" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name>Power-Controller</name>
+				<properties>
+					<item type="chargingVelocity" value="25" />
+					<item type="dischargingVelocity" value="50" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Endlager-->
+	
+		<type>PollutionReducer</type>
+		<name>Endlager</name>
+		<identifier>NuclearRepository</identifier>
+		
+		<properties>
+			<item type="capacity" value="10000" />
+			<item type="efficiency" value="0.4" />
+			<item type="chargingVelocity" value="50" />
+			<item type="dischargingVelocity" value="250" />
+			
+			<item type="effdesert" value="1" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="1" />
 		</properties>
 		
 		<active>
