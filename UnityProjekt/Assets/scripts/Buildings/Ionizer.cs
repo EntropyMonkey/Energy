@@ -1,22 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
-public class House : Building {
-	
+public class Ionizer : Building {
+
 	// Use this for initialization
-	void Start () 
-	{
+	void Start () {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
+	void Update () {
+	
 	}
 	
 	public override Type getBuildingType() 
 	{
-		return Type.House;
+		return Type.Ionizer;
 	}
 	
 	public override Building applyUpgrade()
