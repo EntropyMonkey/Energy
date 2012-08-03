@@ -89,7 +89,7 @@ public class Map : MonoBehaviour {
 		for (int x = 0; x < MapSize; x++) {
 			for (int y = 0; y < MapSize; y++) {
 				Building b = Tiles[x,y].CurrentBuilding;
-				Dictionary<Building.ResourceType, double> dictVal = b.currentValues;
+				Dictionary<Building.ResourceType, float> dictVal = b.currentValues;
 				power += dictVal[Building.ResourceType.Power];
 				work += dictVal[Building.ResourceType.Work];
 				pollution += dictVal[Building.ResourceType.Pollution];

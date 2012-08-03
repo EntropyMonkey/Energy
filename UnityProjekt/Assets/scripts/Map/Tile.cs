@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 
@@ -10,6 +11,7 @@ public class Tile : MonoBehaviour
 	private TileType type;
 	// Map instance to get tiles around it
 	private Map map;
+	
 	
 	// GameManager instance
 	private GameManager gameManager;
@@ -62,19 +64,22 @@ public class Tile : MonoBehaviour
 		get;
 		private set;
 	}
-	
+
 	// The last pollution of this tile (incl. building and surroundings)
 	public float Pollution
 	{
 		get { return pollution; }
 		set
 		{
-			pollution = value;
+			if (polluteItself)
+				pollution = value;
 			psys.emissionRate = pollution * maxEmissionRate;
 		}
 	}
-	private float pollution;
 
+	private float pollution;
+	private const double MAX_POLLUTION = 1;
+	private bool polluteItself = true;
 	const float maxEmissionRate = 20.0f;
 	ParticleSystem psys;
 	
@@ -152,18 +157,47 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		//int tempPollution = (int)(this.Pollution + this.CurrentBuilding.updateOutput()[Building.ResourceType.Pollution]);
-
-	  
-		//TODO
-		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
-		//{
-		//    if(t.CurrentBuilding is PollutionReducer)
-		//    {
-		//        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
-		//    }
-		//}
-		//this.Pollution = tempPollution;
+		float tempPollution = Pollution;
+		if(!this.isFree && Pollution < MAX_POLLUTION)
+			tempPollution = (tempPollution + this.CurrentBuilding.currentValues[Building.ResourceType.Pollution]) * Time.deltaTime;
+		else if(this.shouldPolluteItself())
+		{
+			tempPollution += 0.001f; //TODO check this amount 
+		}
+		
+		List<Tile> enviromentTiles = this.map.GetEnvironmentTiles(this);
+		int counter = 0;
+		foreach(Tile t in enviromentTiles)
+		{
+			if(!t.isFree && t.CurrentBuilding.currentValues.ContainsKey(Building.ResourceType.Pollution) && t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] > 0 && t.Pollution >= MAX_POLLUTION)
+			{
+				this.SetPolluteItself(true);	
+			}
+			if(t.Pollution >= MAX_POLLUTION)
+			{
+				counter ++;
+				if(counter >= 3)
+				{
+					this.SetPolluteItself(true);	
+				}
+			}
+				
+//		    if(t.CurrentBuilding is PollutionReducer) TODO Wait for buildings
+//		    {
+//		        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
+//		    }
+		}
+		Pollution = tempPollution;
+	}
+	
+	public bool shouldPolluteItself()
+	{
+		return this.polluteItself;		
+	}
+	
+	public void SetPolluteItself(bool should)
+	{
+		this.polluteItself = should;	
 	}
 	
 	public void Load(string json)
@@ -182,7 +216,7 @@ public class Tile : MonoBehaviour
 		json = json.Substring(json.IndexOf(",") + 1);
 		try
 		{
-			this.Pollution = Double.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") - 1));
+			Pollution = float.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") - 1));
 		}
 		catch(Exception e)
 		{
@@ -231,6 +265,7 @@ public class Tile : MonoBehaviour
 		}
 	}
 	
+	//Getting the Vector2 by the corresponding json string
 	private Vector2 StringToVector2(string json)
 	{
 		json = json.Replace("[", "").Replace("]","");
