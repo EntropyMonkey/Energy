@@ -1,16 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public class CoalPowerplant : Building {
+public class CoalPowerplant : Building 
+{
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+		if (Input.GetMouseButtonUp(0))
+			applyUpgrade();
 	}
 	
 	public override Type getBuildingType() 
@@ -20,6 +24,6 @@ public class CoalPowerplant : Building {
 	
 	public override void applyUpgrade()
 	{
-		
+		Debug.Log(gameObject.GetComponent<MeshFilter>().mesh);
 	}
 }

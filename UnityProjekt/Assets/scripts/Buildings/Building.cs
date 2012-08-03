@@ -82,53 +82,54 @@ public abstract class Building : MonoBehaviour
 		}
 
 		//auslesen der umgebung
-		for(int i=0; i<=7; i++)
-		{
-			switch(tilelist[i].CurrentBuilding.Type)
-			{
-				case Type.CoalPowerplant || Type.NuclearPowerplant || Type.BioPowerplant || Type.FusionPowerplant:
-					if(currentTile.CurrentBuilding.Type.House == "House")
-					{
-						CurrentTileEfficiency = CurrentTileEfficiency + gameManager.Buildings[0].Values.getProperty("effThermic");
-					}
-				break;
-			}
-		}
+		//for(int i=0; i<=7; i++)
+		//{
+		//    switch(tilelist[i].CurrentBuilding.Type)
+		//    {
+		//        case Type.CoalPowerplant || Type.NuclearPowerplant || Type.BioPowerplant || Type.FusionPowerplant:
+		//            if(currentTile.CurrentBuilding.Type.House == "House")
+		//            {
+		//                CurrentTileEfficiency = CurrentTileEfficiency + gameManager.Buildings[0].Values.getProperty("effThermic");
+		//            }
+		//        break;
+		//    }
+		//}
 		
 		//hier kommt die umgebungsberechnung
 		
 		
-		return Efficiency;
+		//return Efficiency;
+		return 1;
 	}
 	
 	public abstract Type getBuildingType();
 	
 	protected void updateValues()
 	{
-		float[] ufreturn = updateEfficiency();
-		XMLParser.ValueGroup values = gameManager.Buildings[(int)getBuildingType()].Values;
+		//float[] ufreturn = updateEfficiency();
+		//XMLParser.ValueGroup values = gameManager.Buildings[(int)getBuildingType()].Values;
 		
-		currentValues.Clear();
+		//currentValues.Clear();
 		
-		currentValues.Add(ResourceType.Power, 0);
-		currentValues.Add(ResourceType.Work, 0);
-		currentValues.Add(ResourceType.Pollution, 0);
+		//currentValues.Add(ResourceType.Power, 0);
+		//currentValues.Add(ResourceType.Work, 0);
+		//currentValues.Add(ResourceType.Pollution, 0);
 		
-		currentValues[ResourceType.Power] += values.getPassive("power");
-		currentValues[ResourceType.Work] += values.getPassive("work");
-		currentValues[ResourceType.Pollution] += values.getPassive("pollution");
+		//currentValues[ResourceType.Power] += values.getPassive("power");
+		//currentValues[ResourceType.Work] += values.getPassive("work");
+		//currentValues[ResourceType.Pollution] += values.getPassive("pollution");
 		
-		if (isEnabled)
-		{
-			currentValues[ResourceType.Power] += values.getActive("power");
-			currentValues[ResourceType.Work] += values.getActive("work");
-			currentValues[ResourceType.Pollution] += values.getActive("pollution");
-		}
+		//if (isEnabled)
+		//{
+		//    currentValues[ResourceType.Power] += values.getActive("power");
+		//    currentValues[ResourceType.Work] += values.getActive("work");
+		//    currentValues[ResourceType.Pollution] += values.getActive("pollution");
+		//}
 		
-		// FIXME: Upgrades
+		//// FIXME: Upgrades
 		
-		currentValues[ResourceType.Power] *= ufreturn[0];
-		currentValues[ResourceType.Work] *= ufreturn[1];
+		//currentValues[ResourceType.Power] *= ufreturn[0];
+		//currentValues[ResourceType.Work] *= ufreturn[1];
 	}
 	
 	public abstract void applyUpgrade();
