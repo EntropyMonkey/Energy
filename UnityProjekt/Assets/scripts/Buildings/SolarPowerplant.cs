@@ -18,8 +18,8 @@ public class SolarPowerplant : Building {
 		return Type.SolarPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

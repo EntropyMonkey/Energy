@@ -18,8 +18,8 @@ public class PumpedStoragePowerStation : Building {
 		return Type.PumpedStoragePowerStation;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

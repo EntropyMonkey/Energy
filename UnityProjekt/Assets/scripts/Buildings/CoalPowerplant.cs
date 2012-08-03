@@ -22,8 +22,12 @@ public class CoalPowerplant : Building
 		return Type.CoalPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		Debug.Log(gameObject.GetComponent<MeshFilter>().mesh);
+		if (updateLevel == 1)
+		{
+			GameObject newBuilding = (GameObject)Instantiate(gameManager.Prefabs[1], transform.position, Quaternion.identity);
+		}
+		return null;
 	}
 }

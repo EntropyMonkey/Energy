@@ -18,8 +18,8 @@ public class FusionPowerplant : Building {
 		return Type.FusionPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

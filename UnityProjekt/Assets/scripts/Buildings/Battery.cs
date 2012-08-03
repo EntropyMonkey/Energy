@@ -18,8 +18,8 @@ public class Battery : Building {
 		return Type.Battery;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }
