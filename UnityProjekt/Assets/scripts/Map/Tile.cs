@@ -143,7 +143,7 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		int tempPollution = (int)(this.Pollution + this.CurrentBuilding.updateOutput()[Building.ResourceType.Pollution]);
+		//int tempPollution = (int)(this.Pollution + this.CurrentBuilding.updateOutput()[Building.ResourceType.Pollution]);
 	  
 		//TODO
 		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
@@ -153,7 +153,7 @@ public class Tile : MonoBehaviour
 		//        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
 		//    }
 		//}
-		this.Pollution = tempPollution;
+		//this.Pollution = tempPollution;
 	}
 	
 	public void Load(string json)
