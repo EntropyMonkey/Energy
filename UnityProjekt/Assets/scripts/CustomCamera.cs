@@ -7,12 +7,13 @@ public class CustomCamera : MonoBehaviour
 	public const float maxspeed = 1000.0f;
 	public const float acceleration = 250.0f;
 	public const float deceleration = 0.1f;
-	public float mapsize = 25f;
+	public float mapsize = 50f;
+	public float maxscroll = 400f;
+	public float minscroll = 100f;
 
 	public Bounds bounds;
 
 	private Vector3 velocity;
-
 	//the minimum mouse position at which no scrolling happens
 	public Vector2 minMousePositon = new Vector2();
 	//the maximum mouse position at which no scrolling happens
@@ -77,33 +78,32 @@ public class CustomCamera : MonoBehaviour
 		if (velocity.sqrMagnitude> maxspeed * maxspeed)
 		{
 			velocity =velocity.normalized * maxspeed;
-
+		}
 		transform.position += velocity * Time.deltaTime;
-		Vector3 newPos = transform.position;
+		
+		
+		Vector3 newPosMove = transform.position;	
+		//wenn die Postion der X-Achse gröser ist als 50
 		if (transform.position.x > mapsize)
 		{
-			Debug.Log (1);
-			//newPos.x = mapsize/2;
+			newPosMove.x = mapsize;
 		}
-		else if (transform.position.x < -mapsize)
+		//wenn die Postion der X-Achse kleiner ist als 0 
+		else if (transform.position.x < 0)
 		{
-			Debug.Log (2);
-			//direction = newPos;
+			newPosMove.x = 0;
 		}
-		else if (transform.position.z > mapsize)
-		{
-			Debug.Log (3);
-			//direction = newPos;
-		}
-		else if (transform.position.z < -mapsize)
-		{
-			Debug.Log (4);
-			//direction = newPos;
-		}
-		transform.position = newPos;
 		
+		if (transform.position.z > mapsize)
+		{
+			newPosMove.z = mapsize;
 		}
-	}
+		else if (transform.position.z < 0)
+		{
+			newPosMove.z = 0;
+		}
+		transform.position = newPosMove;
+		}
 
 	void UpdateScroll()
 	{			
@@ -117,6 +117,17 @@ public class CustomCamera : MonoBehaviour
 		{
 			direction = new Vector3 (0,-200,0);
 		}
+		
+		Vector3 newPosScroll = transform.position;		
+		if (transform.position.y > maxscroll)
+		{
+			newPosScroll.y = maxscroll;
+		}
+		else if (transform.position.y < minscroll)
+		{
+			newPosScroll.y = minscroll;
+		}
+		transform.position = newPosScroll;
 		//else 
 		//{
 		//	direction = -velocity * deceleration;
@@ -129,5 +140,6 @@ public class CustomCamera : MonoBehaviour
 		
 
 		transform.position += direction * Time.deltaTime;
+		
 	}
 }
