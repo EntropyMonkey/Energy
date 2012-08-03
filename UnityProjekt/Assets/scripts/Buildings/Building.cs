@@ -13,7 +13,7 @@ public abstract class Building : MonoBehaviour
 		SolarPowerplant, BioPowerplant, WindPowerplant, FusionPowerplant,
 		PumpedStoragePowerStation, FuelCell, Battery, Forest, Ionizer, NuclearRepository };
 	
-    protected Tile tileRef;
+    public Tile tileRef;
 	protected bool isEnabled;
     protected GameManager gameManager;
     public Dictionary<ResourceType, double> currentValues;
@@ -37,11 +37,12 @@ public abstract class Building : MonoBehaviour
 	
 	void Update()
 	{
-		
+		this.updatePollution();
 	}
 	
 	public void updatePollution()
 	{
+		tileRef.Pollution += this.currentValues[ResourceType.Pollution] * (double)Time.deltaTime;
 	}
 	
 	public float[] updateEfficiency()
