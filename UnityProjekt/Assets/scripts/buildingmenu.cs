@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 public class buildingmenu : MonoBehaviour {
-	public GUIStyle bgimage;
+	public GUIStyle bgimage, bg_image_a, bg_image_b, bg_image_c, bg_image_d;
 	//private int maxHealth=100;
 	//private int curHealth=100;   
 	private string workmin = "10";
@@ -66,7 +66,7 @@ public class buildingmenu : MonoBehaviour {
 			mouseButtonDown = true;
 		}
 		
-		GUI.Box (menuBox, "Work:" + workmin + "/" + workmax + "\n" + "Energy:" + energy + "\n" + "Pollution:" + pollution);
+		GUI.Box (menuBox, "Work:" + workmin + "/" + workmax + "\n" + "Energy:" + energy + "\n" + "Pollution:" + pollution, bgimage);
 		if (GUI.Button(menubox_c, "-")) {
 			down();
 		}
