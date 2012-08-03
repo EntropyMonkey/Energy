@@ -29,8 +29,7 @@ public class Tile : MonoBehaviour
 			if(textures.GetTextureByType(this.type) != null)
 			{
 				// Set the texture
-				Transform cube = transform.Find("Cube");
-				cube.renderer.material.mainTexture = textures.GetTextureByType(value);
+				renderer.material.mainTexture = textures.GetTextureByType(value);
 			}
 		}
 	}
@@ -79,7 +78,7 @@ public class Tile : MonoBehaviour
 		this.Pollution = 0;
 		Vector3 size = transform.localScale;
 		this.Size = new Vector2(size.x, size.z);
-		GameObject mapObject = GameObject.Find("Map");
+		GameObject mapObject = GameObject.Find("GameManager");
 		map = mapObject.GetComponent<Map>();
 		
 		this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -136,6 +135,7 @@ public class Tile : MonoBehaviour
 	public void RemoveBuilding()
 	{
 		// this.CurrentBuilding.Clear(); //TODO
+		CurrentBuilding.transform.renderer.enabled = false;
 		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
@@ -143,7 +143,7 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		int tempPollution = this.Pollution + this.CurrentBuilding.updateOutput()[ResourceType.Pollution];
+		int tempPollution = (int)(this.Pollution + this.CurrentBuilding.updateOutput()[Building.ResourceType.Pollution]);
 	  
 		//TODO
 		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
@@ -171,7 +171,7 @@ public class Tile : MonoBehaviour
 		}
 		catch(Exception e)
 		{
-			//Debug.Log(e.Message);
+			Debug.Log(e.Message);
 		}
 		json = json.Substring(json.IndexOf(":", 2) + 1);
 		if(json.Equals("null"))
@@ -189,7 +189,7 @@ public class Tile : MonoBehaviour
 			}
 			catch(Exception e)
 			{
-				//Debug.Log(e.Message);
+				Debug.Log(e.Message);
 			}
 			json = json.Substring(json.IndexOf("[") + 1, json.Length - 1);
 			if(id != -1)

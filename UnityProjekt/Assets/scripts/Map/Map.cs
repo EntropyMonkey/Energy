@@ -5,10 +5,11 @@ using System.IO;
 using System;
 
 public class Map : MonoBehaviour {
+
 	public const int MapSize = 50;
 	private const int environmentRadius = 3;
 	public Tile[,] Tiles = new Tile[MapSize, MapSize];
-	public GameObject prefab;
+	public GameObject tilePrefab;
 	private StreamReader fileReader;
 	private StreamWriter fileWriter;
 	
@@ -40,9 +41,8 @@ public class Map : MonoBehaviour {
 			//TODO: Clear Map if Tiles already exist
 			
 			foreach(string s in mapList){
-				GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+				GameObject buffer = (GameObject)Instantiate(tilePrefab, new Vector3(0, 0, 0), Quaternion.identity);
 				Tile t = buffer.GetComponent<Tile>();
-				Debug.Log(s);
 				t.Load(s);
 				int tileX = (int)t.Coords.x;
 				int tileY = (int)t.Coords.y;
@@ -81,7 +81,27 @@ public class Map : MonoBehaviour {
 		}
 	}
 
-
+	public Dictionary<Building.ResourceType, float> getTotalValues()
+	{
+		Dictionary<Building.ResourceType, float> returnVal = new Dictionary<Building.ResourceType, float>();
+		float power = 0, work = 0, pollution= 0;
+		for (int x = 0; x < MapSize; x++) {
+			for (int y = 0; y < MapSize; y++) {
+				Building b = Tiles[x,y].CurrentBuilding;
+				Dictionary<Building.ResourceType, float> outval = new Dictionary<Building.ResourceType, float>();
+				Dictionary<Building.ResourceType, float> inval = new Dictionary<Building.ResourceType, float>();
+				outval = b.updateOutput();
+				inval = b.updateInput();
+				power += outval[Building.ResourceType.Power] - inval[Building.ResourceType.Power];
+				work += outval[Building.ResourceType.Work] - inval[Building.ResourceType.Work];
+				pollution += outval[Building.ResourceType.Pollution] - inval[Building.ResourceType.Pollution];
+			}
+		}
+		returnVal[Building.ResourceType.Power] = power;
+		returnVal[Building.ResourceType.Work] = work;
+		returnVal[Building.ResourceType.Pollution] = pollution;
+		return returnVal;
+	}
 	
 	public void CreateMap() {
 		System.Random r = new System.Random(); //Zufallsgenerator initialisieren
@@ -169,7 +189,7 @@ public class Map : MonoBehaviour {
 	}
 	
 	private void AddTileToGame(int x, int y, TileType tt) {
-		GameObject buffer = (GameObject)Instantiate(prefab, new Vector3(x, 0, y), Quaternion.identity);
+		GameObject buffer = (GameObject)Instantiate(tilePrefab, new Vector3(x, 0, y), Quaternion.identity);
 		buffer.name = "Tile_" + x + "_" + y;
 		Tile t = buffer.GetComponent<Tile>();
 		t.Coords = new Vector2(x, y);
