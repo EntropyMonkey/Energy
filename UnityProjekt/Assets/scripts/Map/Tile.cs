@@ -5,6 +5,7 @@ using System;
 
 public class Tile : MonoBehaviour
 {
+
 	//Type of tile
 	private TileType type;
 	// Map instance to get tiles around it
@@ -63,12 +64,19 @@ public class Tile : MonoBehaviour
 	}
 	
 	// The last pollution of this tile (incl. building and surroundings)
-	public double Pollution
+	public float Pollution
 	{
-		get;
-		set;
+		get { return pollution; }
+		set
+		{
+			pollution = value;
+			psys.emissionRate = pollution * maxEmissionRate;
+		}
 	}
-	
+	private float pollution;
+
+	const float maxEmissionRate = 20.0f;
+	ParticleSystem psys;
 	
 	
 	// Initialization
@@ -82,6 +90,8 @@ public class Tile : MonoBehaviour
 		this.map = gamemanagerObject.GetComponent<Map>();
 		
 		this.gameManager = gamemanagerObject.GetComponent<GameManager>();
+
+		psys = gameObject.GetComponent<ParticleSystem>();
 		
 	}
 	
