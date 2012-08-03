@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <buildings>
-	<building>
+	<building> <!--Haus-->
 		<type>House</type>
 		<name>Einfamilienhaus</name>
 		<identifier>FamilyHouse</identifier>
@@ -19,7 +19,125 @@
 			<item type="work" value="-2" />
 		</construct>
 	</building>
-	<building>
+	<building> <!--NuclearPowerplant-->
+	
+		<type>NuclearPowerplant</type>
+		<name>NuclearPowerplant</name>
+		<identifier>NuclearPowerplant</identifier>
+		
+		<properties>
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="0" value="0" />
+			<item type="0" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--VerbrennungsKW-->
+	
+		<type>PowerPlant</type>
+		<name>Verbrennungskraftwerk</name>
+		<identifier>Coalpowerplant</identifier>
+		
+		<properties>
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="1" />
+			<item type="effsea" value="0" />
+			<item type="effriver" value="0" />
+			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Wasserkraftwerk-->
+	
+		<type></type>
+		<name></name>
+		<identifier></identifier>
+		
+		<properties>
+			<item type="effdesert" value="0" />
+			<item type="effgrassland" value="0" />
+			<item type="effsea" value="1" />
+			<item type="effriver" value="1" />
+			<item type="effmountain" value="0" />
+		</properties>
+		
+		<active>
+		</active>
+		<passive>
+		</passive>
+		<construct time="0">
+			<item type="work" value="0" />
+			<item type="power" value="0" />
+		</construct>
+		
+		<upgrades>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+			<upgrade>
+				<name></name>
+				<properties>
+					<item type="" value="" />
+					<item type="" value="" />
+				</properties>
+			</upgrade>
+		</upgrades>
+	</building>
+	<building> <!--Batterie-->
+	
 		<type>Storage</type>
 		<name>Batterie</name>
 		<identifier>Battery</identifier>

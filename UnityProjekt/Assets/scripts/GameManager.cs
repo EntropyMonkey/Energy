@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		Prefabs = new List<GameObject>();
+		// DO NOT DO THIS!!!!
+		//Prefabs = new List<GameObject>();
 		Buildings = new List<XMLParser.Building>();
 		//read game values xml data
 		Parser parser = new Parser("gamevalues.xml");

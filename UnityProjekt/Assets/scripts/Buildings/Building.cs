@@ -13,13 +13,11 @@ public abstract class Building : MonoBehaviour
 		SolarPowerplant, BioPowerplant, WindPowerplant, FusionPowerplant,
 		PumpedStoragePowerStation, FuelCell, Battery, Forest, Ionizer, NuclearRepository };
 	
-    protected Tile tileRef;
+    public Tile tileRef;
 	protected bool isEnabled;
     protected GameManager gameManager;
-    protected Dictionary<ResourceType, float> input;
-    protected Dictionary<ResourceType, float> output;
-    protected Dictionary<ResourceType, float> currentInput;
-    protected Dictionary<ResourceType, float> currentOutput;
+    public Dictionary<ResourceType, double> currentValues;
+    //public Dictionary<ResourceType, float> currentOutput;
 
 	public List<Upgrade> Upgrades;
 
@@ -32,25 +30,25 @@ public abstract class Building : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        input = new Dictionary<ResourceType, float>();
-        output = new Dictionary<ResourceType, float>();
-        currentInput = new Dictionary<ResourceType, float>();
-        currentOutput = new Dictionary<ResourceType, float>();
+        currentValues = new Dictionary<ResourceType, double>();
+		
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
 	void Update()
 	{
-		
+		this.updatePollution();
 	}
 	
 	public void updatePollution()
 	{
+		tileRef.Pollution += this.currentValues[ResourceType.Pollution] * (double)Time.deltaTime;
 	}
 	
 	public float[] updateEfficiency()
 	{
 		float[] Efficiency = new float[3]; //Effizienz werte 0...2 , Work, Pollution
+		double CurrentTileEfficiency;
 		
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(Convert.ToInt32(tileRef.Coords.x), Convert.ToInt32(tileRef.Coords.y));
@@ -60,42 +58,29 @@ public abstract class Building : MonoBehaviour
 		{
 			if(i == 0) // Berechnung der Power Effizienz
 			{
-				switch(currentTile.CurrentBuilding.getBuildingType())
+				//switch(currentTile.CurrentBuilding.getBuildingType())
+				switch(currentTile.Type)
 				{
-					
-				case Type.WaterPowerplant:	
-					
-					switch(currentTile.Type)
-					{
-					case TileType.Desert:
-						break;
-							
-					case TileType.Grassland:
-						break;
-						
-					case TileType.Mountain:
-						break;
-						
-					case TileType.River:
-						break;
-						
-					case TileType.Sea:
-						break;
-					}
-					
-					break;
-					
-				case Type.WindPowerplant:
-					break;
-					
-				case Type.BioPowerplant:
-					break;
-					
-				case Type.SolarPowerplant:
+				case TileType.Desert:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDesert");
 					break;
 						
+				case TileType.Grassland:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDGrassland");
+					break;
+					
+				case TileType.Mountain:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effMountain");
+					break;
+					
+				case TileType.River:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effRiver");
+					break;
+					
+				case TileType.Sea:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effSea");
+					break;
 				}
-				
 			}
 			else if(i == 1) // Berechnung der Work Effizienz
 			{
@@ -103,10 +88,14 @@ public abstract class Building : MonoBehaviour
 			}
 		}
 		
+		
+		
+		
 		return Efficiency;
 	}
 	
-	public Dictionary<ResourceType, float> updateOutput()
+	
+	/*public Dictionary<ResourceType, float> updateOutput()
 	{
         float[] ufreturn = updateEfficiency();
         float flPower = output[ResourceType.Power] * ufreturn[0];
@@ -134,7 +123,35 @@ public abstract class Building : MonoBehaviour
         currentInput[ResourceType.Pollution] = flPollution;
 		
 		return currentInput;
-	}
+	}*/
 	
 	public abstract Type getBuildingType();
+	
+	protected void updateValues()
+	{
+		float[] ufreturn = updateEfficiency();
+		XMLParser.ValueGroup values = gameManager.Buildings[(int)getBuildingType()].Values;
+		
+		currentValues.Clear();
+		
+		currentValues.Add(ResourceType.Power, 0);
+		currentValues.Add(ResourceType.Work, 0);
+		currentValues.Add(ResourceType.Pollution, 0);
+		
+		currentValues[ResourceType.Power] += values.getPassive("power");
+		currentValues[ResourceType.Work] += values.getPassive("work");
+		currentValues[ResourceType.Pollution] += values.getPassive("pollution");
+		
+		if (isEnabled)
+		{
+			currentValues[ResourceType.Power] += values.getActive("power");
+			currentValues[ResourceType.Work] += values.getActive("work");
+			currentValues[ResourceType.Pollution] += values.getActive("pollution");
+		}
+		
+		// FIXME: Upgrades
+		
+		currentValues[ResourceType.Power] *= ufreturn[0];
+		currentValues[ResourceType.Work] *= ufreturn[1];
+	}
 }

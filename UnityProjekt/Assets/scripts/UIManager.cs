@@ -4,9 +4,11 @@ using System;
 public class UIManager : MonoBehaviour
 {
 	Camera mainCamera;
+	GameManager gameManager;
 
 	void Start()
 	{
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 	}
 
@@ -37,6 +39,7 @@ public class UIManager : MonoBehaviour
 		if (tile)
 		{
 			CreateTileMenu(mainCamera.WorldToScreenPoint(tile.transform.position));
+			tile.Build(0);
 		}
 	}
 
