@@ -3,15 +3,17 @@ using UnityEngine;
 using System.Collections;
 
 public class buildingmenu : MonoBehaviour {
+	public GUIStyle bgimage;
 	//private int maxHealth=100;
 	//private int curHealth=100;   
 	private string workmin = "10";
 	private string workmax = "15";
 	private string energy = "-5";
 	private string pollution = "+1";
+	private string deactivated = "Di";
+	private string destroyed = "De";
 	private bool mouseButtonDown;
 	private Rect menuBox, menubox_a, menubox_b, menubox_c, menubox_d, menubox_e, menubox_f;
-	public Texture[] tex;
 	void down(){
 		print("down");
 	}
@@ -44,6 +46,8 @@ public class buildingmenu : MonoBehaviour {
 	}
 	
 	void OnGUI(){
+		//GUI.skin = mySkin;
+		//GUI.skin = buildingmenu;
 		Vector3 mouse = Input.mousePosition;
 		mouse.y = Screen.height - mouse.y;
 		if (Input.GetMouseButtonUp(0) && mouseButtonDown && !isInMenuBox(menuBox, mouse) && !isInMenuBox(menubox_a ,mouse) && !isInMenuBox(menubox_b ,mouse)){
@@ -66,13 +70,13 @@ public class buildingmenu : MonoBehaviour {
 		if (GUI.Button(menubox_c, "-")) {
 			down();
 		}
-		if (GUI.Button(menubox_d, "+")){
+		if (GUI.Button(menubox_d, "+", bgimage)){
 			up();
 		}
-		if (GUI.Button(menubox_e, "Di")){
+		if (GUI.Button(menubox_e, deactivated)){
 			disablebuilding();
 		}
-		if (GUI.Button(menubox_f, "De")){
+		if (GUI.Button(menubox_f, destroyed)){
 			destroybuilding();
 		}
 		//GUI.Box (new Rect (10,10,Screen.width / 2 / (maxHealth / curHealth),50), curHealth + "/" + maxHealth);
