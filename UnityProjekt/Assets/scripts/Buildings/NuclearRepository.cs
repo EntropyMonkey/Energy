@@ -18,8 +18,8 @@ public class NuclearRepository : Building {
 		return Type.NuclearRepository;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

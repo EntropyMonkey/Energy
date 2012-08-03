@@ -18,8 +18,8 @@ public class WindPowerplant : Building {
 		return Type.WindPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

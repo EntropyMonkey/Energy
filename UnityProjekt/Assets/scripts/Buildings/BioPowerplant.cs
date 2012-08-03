@@ -18,8 +18,8 @@ public class BioPowerplant : Building {
 		return Type.BioPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

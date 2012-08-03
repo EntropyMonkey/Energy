@@ -19,8 +19,8 @@ public class House : Building {
 		return Type.House;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }
