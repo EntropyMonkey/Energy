@@ -182,10 +182,10 @@ public class Tile : MonoBehaviour
 				}
 			}
 				
-//		    if(t.CurrentBuilding is PollutionReducer) TODO Wait for buildings
-//		    {
-//		        tempPollution -= ((PollutionReducer)t.CurrentBuilding).ReductionAmount;
-//		    }
+		    if(t.CurrentBuilding.currentValues.ContainsKey(Building.ResourceType.Pollution) && t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] < 0)
+		    {
+		        tempPollution += t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] * Time.deltaTime;
+		    }
 		}
 		Pollution = tempPollution;
 	}
