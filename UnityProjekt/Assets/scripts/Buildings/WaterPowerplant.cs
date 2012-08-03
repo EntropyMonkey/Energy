@@ -18,8 +18,8 @@ public class WaterPowerplant : Building {
 		return Type.WaterPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }
