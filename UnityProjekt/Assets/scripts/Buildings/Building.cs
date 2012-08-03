@@ -20,6 +20,8 @@ public abstract class Building : MonoBehaviour
     //public Dictionary<ResourceType, float> currentOutput;
 
 	public List<Upgrade> Upgrades;
+	
+	public int updateLevel = 1;
 
 	public bool IsEnabled
 	{
@@ -154,4 +156,6 @@ public abstract class Building : MonoBehaviour
 		currentValues[ResourceType.Power] *= ufreturn[0];
 		currentValues[ResourceType.Work] *= ufreturn[1];
 	}
+	
+	public abstract void applyUpgrade();
 }

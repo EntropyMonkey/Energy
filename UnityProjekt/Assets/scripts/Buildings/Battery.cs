@@ -17,4 +17,9 @@ public class Battery : Building {
 	{
 		return Type.Battery;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }
