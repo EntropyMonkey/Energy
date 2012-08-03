@@ -128,13 +128,13 @@ public class Tile : MonoBehaviour
 	private string getUpgradesString()
 	{
 		string temp = "";
-		foreach(Upgrade u in this.CurrentBuilding.Upgrades)
+		/*foreach(Upgrade u in this.CurrentBuilding.Upgrades)
 		{
 			temp += "\"" + u.GetType().Name + ":" + 1 + "\",";//TODO get actual level or name of upgrade
 		}
 		if(temp.Length > 1)
 			temp = temp.Substring(0, temp.Length - 1);
-		return temp;
+		*/return temp;
 	}
 	// Builds a building on this tile
 	public Building Build(int Id)
@@ -169,7 +169,7 @@ public class Tile : MonoBehaviour
 		int counter = 0;
 		foreach(Tile t in enviromentTiles)
 		{
-			if(!t.isFree && t.CurrentBuilding.currentValues.ContainsKey(Building.ResourceType.Pollution) && t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] > 0 && t.Pollution >= MAX_POLLUTION)
+			if(!t.isFree && t is Powerplant && t.Pollution >= MAX_POLLUTION)
 			{
 				this.SetPolluteItself(true);	
 			}
@@ -182,9 +182,9 @@ public class Tile : MonoBehaviour
 				}
 			}
 				
-		    if(t.CurrentBuilding.currentValues.ContainsKey(Building.ResourceType.Pollution) && t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] < 0)
+		    if(t is PollutionReducer)
 		    {
-		        tempPollution += t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] * Time.deltaTime;
+		        tempPollution += t.CurrentBuilding.currentValues[Building.ResourceType.Pollution];
 		    }
 		}
 		Pollution = tempPollution;
