@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class FuelCell : Building {
+public class Ionizer : PollutionReducer {
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class FuelCell : Building {
 	
 	public override Type getBuildingType() 
 	{
-		return Type.FuelCell;
+		return Type.Ionizer;
 	}
 	
 	public override Building applyUpgrade()

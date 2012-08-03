@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class FusionPowerplant : Building {
+public class Battery : Storage {
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class FusionPowerplant : Building {
 	
 	public override Type getBuildingType() 
 	{
-		return Type.FusionPowerplant;
+		return Type.Battery;
 	}
 	
 	public override Building applyUpgrade()

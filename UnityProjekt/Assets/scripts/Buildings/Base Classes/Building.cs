@@ -21,11 +21,7 @@ public abstract class Building : MonoBehaviour
 
 	public List<Upgrade> Upgrades;
 	
-	public int updateLevel
-	{
-		get;
-		protected set;
-	}
+	public int upgradeLevel = 1;
 
 	public bool IsEnabled
 	{

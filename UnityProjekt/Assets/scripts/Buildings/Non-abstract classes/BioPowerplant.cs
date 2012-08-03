@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BioPowerplant : Building {
+public class BioPowerplant : Powerplant {
 
 	// Use this for initialization
 	void Start () {

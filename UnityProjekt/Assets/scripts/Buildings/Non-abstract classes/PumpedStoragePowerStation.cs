@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Forest : Building {
+public class PumpedStoragePowerStation : Storage {
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class Forest : Building {
 	
 	public override Type getBuildingType() 
 	{
-		return Type.Forest;
+		return Type.PumpedStoragePowerStation;
 	}
 	
 	public override Building applyUpgrade()

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Ionizer : Building {
+public class WaterPowerplant : Powerplant {
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class Ionizer : Building {
 	
 	public override Type getBuildingType() 
 	{
-		return Type.Ionizer;
+		return Type.WaterPowerplant;
 	}
 	
 	public override Building applyUpgrade()

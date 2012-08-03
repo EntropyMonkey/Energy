@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class NuclearPowerplant : Building {
+public class Forest : PollutionReducer {
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +15,7 @@ public class NuclearPowerplant : Building {
 	
 	public override Type getBuildingType() 
 	{
-		return Type.NuclearPowerplant;
+		return Type.Forest;
 	}
 	
 	public override Building applyUpgrade()
