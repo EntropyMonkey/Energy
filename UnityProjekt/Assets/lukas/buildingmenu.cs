@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class test : MonoBehaviour {
+public class buildingmenu : MonoBehaviour {
 	//private int maxHealth=100;
 	//private int curHealth=100;   
 	private string workmin = "10";
