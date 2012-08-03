@@ -18,10 +18,8 @@ public abstract class Building : MonoBehaviour
     protected Tile tileRef;
 	protected bool isEnabled;
     protected GameManager gameManager;
-    protected Dictionary<ResourceType, float> input;
-    protected Dictionary<ResourceType, float> output;
-    protected Dictionary<ResourceType, float> currentInput;
-    protected Dictionary<ResourceType, float> currentOutput;
+    public Dictionary<ResourceType, double> currentValues;
+    //public Dictionary<ResourceType, float> currentOutput;
      
 	public List<Upgrade> Upgrades;
 
@@ -30,10 +28,8 @@ public abstract class Building : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        input = new Dictionary<ResourceType, float>();
-        output = new Dictionary<ResourceType, float>();
-        currentInput = new Dictionary<ResourceType, float>();
-        currentOutput = new Dictionary<ResourceType, float>();
+        currentValues = new Dictionary<ResourceType, double>();
+		
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
 	
@@ -104,7 +100,8 @@ public abstract class Building : MonoBehaviour
 		return Efficiency;
 	}
 	
-	public Dictionary<ResourceType, float> updateOutput()
+	
+	/*public Dictionary<ResourceType, float> updateOutput()
 	{
         float[] ufreturn = updateEfficiency();
         float flPower = output[ResourceType.Power] * ufreturn[0];
@@ -132,7 +129,35 @@ public abstract class Building : MonoBehaviour
         currentInput[ResourceType.Pollution] = flPollution;
 		
 		return currentInput;
-	}
+	}*/
 	
 	public abstract Type getBuildingType();
+	
+	protected void updateValues()
+	{
+		float[] ufreturn = updateEfficiency();
+		XMLParser.ValueGroup values = gameManager.Buildings[(int)getBuildingType()].Values;
+		
+		currentValues.Clear();
+		
+		currentValues.Add(ResourceType.Power, 0);
+		currentValues.Add(ResourceType.Work, 0);
+		currentValues.Add(ResourceType.Pollution, 0);
+		
+		currentValues[ResourceType.Power] += values.getPassive("power");
+		currentValues[ResourceType.Work] += values.getPassive("work");
+		currentValues[ResourceType.Pollution] += values.getPassive("pollution");
+		
+		if (isEnabled)
+		{
+			currentValues[ResourceType.Power] += values.getActive("power");
+			currentValues[ResourceType.Work] += values.getActive("work");
+			currentValues[ResourceType.Pollution] += values.getActive("pollution");
+		}
+		
+		// FIXME: Upgrades
+		
+		currentValues[ResourceType.Power] *= ufreturn[0];
+		currentValues[ResourceType.Work] *= ufreturn[1];
+	}
 }
