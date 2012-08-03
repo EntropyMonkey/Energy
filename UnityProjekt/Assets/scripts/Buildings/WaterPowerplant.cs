@@ -17,4 +17,9 @@ public class WaterPowerplant : Building {
 	{
 		return Type.WaterPowerplant;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }

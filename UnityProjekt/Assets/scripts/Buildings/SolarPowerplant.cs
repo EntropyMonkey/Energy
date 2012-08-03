@@ -17,4 +17,9 @@ public class SolarPowerplant : Building {
 	{
 		return Type.SolarPowerplant;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }

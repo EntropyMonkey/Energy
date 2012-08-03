@@ -17,4 +17,9 @@ public class NuclearRepository : Building {
 	{
 		return Type.NuclearRepository;
 	}
+	
+	public override void applyUpgrade()
+	{
+		
+	}
 }
