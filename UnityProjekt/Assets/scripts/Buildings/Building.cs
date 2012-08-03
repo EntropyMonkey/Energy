@@ -49,6 +49,7 @@ public abstract class Building : MonoBehaviour
 	public float[] updateEfficiency()
 	{
 		float[] Efficiency = new float[3]; //Effizienz werte 0...2 , Work, Pollution
+		double CurrentTileEfficiency;
 		
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		List<Tile> tilelist = ma.GetEnvironmentTiles(Convert.ToInt32(tileRef.Coords.x), Convert.ToInt32(tileRef.Coords.y));
@@ -58,48 +59,38 @@ public abstract class Building : MonoBehaviour
 		{
 			if(i == 0) // Berechnung der Power Effizienz
 			{
-				switch(currentTile.CurrentBuilding.getBuildingType())
+				//switch(currentTile.CurrentBuilding.getBuildingType())
+				switch(currentTile.Type)
 				{
-					
-				case Type.WaterPowerplant:	
-					
-					switch(currentTile.Type)
-					{
-					case TileType.Desert:
-						break;
-							
-					case TileType.Grassland:
-						break;
-						
-					case TileType.Mountain:
-						break;
-						
-					case TileType.River:
-						break;
-						
-					case TileType.Sea:
-						break;
-					}
-					
-					break;
-					
-				case Type.WindPowerplant:
-					break;
-					
-				case Type.BioPowerplant:
-					break;
-					
-				case Type.SolarPowerplant:
+				case TileType.Desert:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDesert");
 					break;
 						
+				case TileType.Grassland:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effDGrassland");
+					break;
+					
+				case TileType.Mountain:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effMountain");
+					break;
+					
+				case TileType.River:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effRiver");
+					break;
+					
+				case TileType.Sea:
+					CurrentTileEfficiency = gameManager.Buildings[(int)currentTile.CurrentBuilding.getBuildingType()].Values.getProperty("effSea");
+					break;
 				}
-				
 			}
 			else if(i == 1) // Berechnung der Work Effizienz
 			{
 				
 			}
 		}
+		
+		
+		
 		
 		return Efficiency;
 	}
