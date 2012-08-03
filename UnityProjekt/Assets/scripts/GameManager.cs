@@ -13,34 +13,43 @@ public class GameManager : MonoBehaviour
 
 	//ScienceStep currentScienceStep;
 
-	//TODO add UI
+	private UIManager uiManager;
+	private Map map;
 
 	public List<GameObject> Prefabs;
+	/// <summary>
+	/// The id of a building type is the index of the type in this list
+	/// </summary>
 	public List<XMLParser.Building> Buildings;
 	
 	public float InGameTime = 720.0f;
-	
-	//TODO add map
 
 	// Use this for initialization
 	void Start () 
 	{
-		// DO NOT DO THIS!!!!
+		// DO NOT DO THIS!!!! public variablen werden in unity automatisch initialisiert.
 		//Prefabs = new List<GameObject>();
 		Buildings = new List<XMLParser.Building>();
 		//read game values xml data
 		Parser parser = new Parser("gamevalues.xml");
 		Buildings = parser.Buildings;
-		
-		//TODO create UI
 
-		//TODO create map
+		uiManager = gameObject.GetComponent<UIManager>();
+		if (uiManager == null)
+		{
+			Debug.LogError("There is no UIManager Script on the GameManager Object.");
+		}
+
+		map = gameObject.GetComponent<Map>();
+		if (map == null)
+		{
+			Debug.LogError("There is no Map Script on the GameManager Object.");
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		//TODO update UI
 		InGameTime += Time.deltaTime * 8.0f;
 		if (InGameTime >= 1440) InGameTime -= 1440.0f;
 	}

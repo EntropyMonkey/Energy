@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
 		Tile tile = hit.collider.gameObject.GetComponent<Tile>();
 		if (tile)
 		{
-			CreateTileMenu(mainCamera.WorldToScreenPoint(tile.transform.position));
+			CreateTileMenu(mainCamera.WorldToScreenPoint(tile.transform.position), tile);
 			tile.Build(0);
 		}
 	}
@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
 		Debug.Log("created building menu " + type + " at " + position);
 	}
 
-	void CreateTileMenu(Vector3 position)
+	void CreateTileMenu(Vector3 position, Tile tile)
 	{
 		Debug.Log("created tile menu at " + position);
 	}

@@ -6,14 +6,12 @@ using System;
 
 public class Tile : MonoBehaviour
 {
+
 	//Type of tile
 	private TileType type;
 	// Map instance to get tiles around it
 	private Map map;
 	
-	private const double MAX_POLLUTION = 1;
-	private double pollution;
-	private bool polluteItself = true;
 	
 	// GameManager instance
 	private GameManager gameManager;
@@ -66,23 +64,24 @@ public class Tile : MonoBehaviour
 		get;
 		private set;
 	}
-	
+
 	// The last pollution of this tile (incl. building and surroundings)
-	public double Pollution
+	public float Pollution
 	{
-		get
-		{
-			return this.pollution;		
-		}
+		get { return pollution; }
 		set
 		{
-			if(!this.polluteItself)
-				return;
-			
-			this.pollution = value;
+			if (polluteItself)
+				pollution = value;
+			psys.emissionRate = pollution * maxEmissionRate;
 		}
 	}
-	
+
+	private float pollution;
+	private const double MAX_POLLUTION = 1;
+	private bool polluteItself = true;
+	const float maxEmissionRate = 20.0f;
+	ParticleSystem psys;
 	
 	
 	// Initialization
@@ -96,6 +95,8 @@ public class Tile : MonoBehaviour
 		this.map = gamemanagerObject.GetComponent<Map>();
 		
 		this.gameManager = gamemanagerObject.GetComponent<GameManager>();
+
+		psys = gameObject.GetComponent<ParticleSystem>();
 		
 	}
 	
@@ -156,12 +157,12 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		double tempPollution = this.Pollution;
-		if(!this.isFree && this.Pollution < MAX_POLLUTION)
+		float tempPollution = Pollution;
+		if(!this.isFree && Pollution < MAX_POLLUTION)
 			tempPollution = (tempPollution + this.CurrentBuilding.currentValues[Building.ResourceType.Pollution]) * Time.deltaTime;
 		else if(this.shouldPolluteItself())
 		{
-			tempPollution = tempPollution + 0.001; //TODO check this amount 
+			tempPollution += 0.001f; //TODO check this amount 
 		}
 		
 		List<Tile> enviromentTiles = this.map.GetEnvironmentTiles(this);
@@ -186,7 +187,7 @@ public class Tile : MonoBehaviour
 		        tempPollution += t.CurrentBuilding.currentValues[Building.ResourceType.Pollution] * Time.deltaTime;
 		    }
 		}
-		this.Pollution = tempPollution;
+		Pollution = tempPollution;
 	}
 	
 	public bool shouldPolluteItself()
@@ -215,7 +216,7 @@ public class Tile : MonoBehaviour
 		json = json.Substring(json.IndexOf(",") + 1);
 		try
 		{
-			this.Pollution = Double.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") - 1));
+			Pollution = float.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") - 1));
 		}
 		catch(Exception e)
 		{

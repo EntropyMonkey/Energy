@@ -16,7 +16,7 @@ public abstract class Building : MonoBehaviour
     public Tile tileRef;
 	protected bool isEnabled;
     protected GameManager gameManager;
-    public Dictionary<ResourceType, double> currentValues;
+    public Dictionary<ResourceType, float> currentValues;
     //public Dictionary<ResourceType, float> currentOutput;
 
 	public List<Upgrade> Upgrades;
@@ -32,7 +32,7 @@ public abstract class Building : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        currentValues = new Dictionary<ResourceType, double>();
+        currentValues = new Dictionary<ResourceType, float>();
 		
         gameManager = GameObject.Find("Main Camera").GetComponent<GameManager>();
 	}
@@ -44,10 +44,10 @@ public abstract class Building : MonoBehaviour
 	
 	public void updatePollution()
 	{
-		tileRef.Pollution += this.currentValues[ResourceType.Pollution] * (double)Time.deltaTime;
+		tileRef.Pollution += currentValues[ResourceType.Pollution] * Time.deltaTime;
 	}
 	
-	public double updateEfficiency() //Effizienz werte 0...2 , Work, Pollution
+	public float updateEfficiency() //Effizienz werte 0...2 , Work, Pollution
 	{
 		double Efficiency = 0.5;
 		double CurrentTileEfficiency = 0;
@@ -102,7 +102,8 @@ public abstract class Building : MonoBehaviour
 		//hier kommt die umgebungsberechnung
 		
 		
-		return Efficiency;
+		//return Efficiency;
+		return 1;
 	}
 	
 	public abstract Type getBuildingType();
@@ -112,25 +113,24 @@ public abstract class Building : MonoBehaviour
 		Map ma = GameObject.Find("Map").GetComponent<Map>();
 		Tile currentTile = ma.GetTileFromPosition(Convert.ToInt32(tileRef.Coords.x), Convert.ToInt32(tileRef.Coords.y));
 		
-		double ufreturn = updateEfficiency();
+		float ufreturn = updateEfficiency();
 		XMLParser.ValueGroup values = gameManager.Buildings[(int)getBuildingType()].Values;
+		//currentValues.Clear();
 		
-		currentValues.Clear();
+		//currentValues.Add(ResourceType.Power, 0);
+		//currentValues.Add(ResourceType.Work, 0);
+		//currentValues.Add(ResourceType.Pollution, 0);
 		
-		currentValues.Add(ResourceType.Power, 0);
-		currentValues.Add(ResourceType.Work, 0);
-		currentValues.Add(ResourceType.Pollution, 0);
+		//currentValues[ResourceType.Power] += values.getPassive("power");
+		//currentValues[ResourceType.Work] += values.getPassive("work");
+		//currentValues[ResourceType.Pollution] += values.getPassive("pollution");
 		
-		currentValues[ResourceType.Power] += values.getPassive("power");
-		currentValues[ResourceType.Work] += values.getPassive("work");
-		currentValues[ResourceType.Pollution] += values.getPassive("pollution");
-		
-		if (isEnabled)
-		{
-			currentValues[ResourceType.Power] += values.getActive("power");
-			currentValues[ResourceType.Work] += values.getActive("work");
-			currentValues[ResourceType.Pollution] += values.getActive("pollution");
-		}
+		//if (isEnabled)
+		//{
+		//    currentValues[ResourceType.Power] += values.getActive("power");
+		//    currentValues[ResourceType.Work] += values.getActive("work");
+		//    currentValues[ResourceType.Pollution] += values.getActive("pollution");
+		//}
 		
 		// FIXME: Upgrades
 		if(currentTile.CurrentBuilding.getBuildingType() == Type.House)
