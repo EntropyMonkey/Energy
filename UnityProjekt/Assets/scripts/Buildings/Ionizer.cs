@@ -18,8 +18,8 @@ public class Ionizer : Building {
 		return Type.Ionizer;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

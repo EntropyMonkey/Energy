@@ -18,8 +18,8 @@ public class NuclearPowerplant : Building {
 		return Type.NuclearPowerplant;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

@@ -18,8 +18,8 @@ public class FuelCell : Building {
 		return Type.FuelCell;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }

@@ -18,8 +18,8 @@ public class Forest : Building {
 		return Type.Forest;
 	}
 	
-	public override void applyUpgrade()
+	public override Building applyUpgrade()
 	{
-		
+		return null;
 	}
 }
