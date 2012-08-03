@@ -63,7 +63,7 @@ public class Tile : MonoBehaviour
 	}
 	
 	// The last pollution of this tile (incl. building and surroundings)
-	public float Pollution
+	public double Pollution
 	{
 		get;
 		set;
@@ -78,10 +78,10 @@ public class Tile : MonoBehaviour
 		this.Pollution = 0;
 		Vector3 size = transform.localScale;
 		this.Size = new Vector2(size.x, size.z);
-		GameObject mapObject = GameObject.Find("GameManager");
-		map = mapObject.GetComponent<Map>();
+		GameObject gamemanagerObject = GameObject.Find("GameManager");
+		this.map = gamemanagerObject.GetComponent<Map>();
 		
-		this.gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		this.gameManager = gamemanagerObject.GetComponent<GameManager>();
 		
 	}
 	
@@ -90,7 +90,7 @@ public class Tile : MonoBehaviour
 		string json = "{";
 		json += "\"coords\":[" +
 			this.Coords.x + "," +
-			this.Coords.y + "," +
+			this.Coords.y +
 			"]," +
 			"\"type:\"" + Enum.GetName(typeof(TileType), this.Type) + "\"," +
 			"\"pollution\":" + this.Pollution + "," + 
@@ -135,7 +135,6 @@ public class Tile : MonoBehaviour
 	public void RemoveBuilding()
 	{
 		// this.CurrentBuilding.Clear(); //TODO
-		CurrentBuilding.transform.renderer.enabled = false;
 		this.CurrentBuilding = null;
 		this.isFree = true;
 	}
@@ -143,7 +142,7 @@ public class Tile : MonoBehaviour
 	// Updates the last pollution of this tile
 	public void UpdatePollution()
 	{
-		int tempPollution = (int)(this.Pollution + this.CurrentBuilding.updateOutput()[Building.ResourceType.Pollution]);
+		double tempPollution = (double)(this.Pollution + this.CurrentBuilding.currentValues[Building.ResourceType.Pollution]);
 	  
 		//TODO
 		//foreach(Tile t in this.map.GetEnvironmentTiles(this))
@@ -158,23 +157,30 @@ public class Tile : MonoBehaviour
 	
 	public void Load(string json)
 	{
-		//Debug.Log(json);
-		//Debug.Log(json.Length);
-		json = json.Substring(1, json.Length - 1);
-		string coords = json.Substring(0, json.IndexOf(",", 2) - 1);
+		if(json.ToCharArray()[0].Equals('['))
+			json = json.Substring(1);
+		
+		if(json.ToCharArray()[json.Length - 1].Equals(']'))
+			json = json.Substring(0, json.Length - 1);	
+		
+		//json = json.Substring(1, json.Length - 1); is this correct?
+		string coords = json.Substring(0, json.IndexOf(",", json.IndexOf("]")) + 1);
 		this.Coords = this.StringToVector2(json.Substring(json.IndexOf("["), json.IndexOf("]")));
 		json = json.Substring(json.IndexOf("]") + 2);
-		this.Type = (TileType)Enum.Parse(typeof(TileType), json.Substring(json.IndexOf(":") + 1, json.IndexOf(",")-json.IndexOf(":")-1), true);
+		this.Type = (TileType)Enum.Parse(typeof(TileType), json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") - 1), true);
+		json = json.Substring(json.IndexOf(",") + 1);
 		try
 		{
-			this.Pollution = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+			this.Pollution = Int32.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") - 1));
 		}
 		catch(Exception e)
 		{
 			Debug.Log(e.Message);
 		}
-		json = json.Substring(json.IndexOf(":", 2) + 1);
-		if(json.Equals("null"))
+		
+		
+		json = json.Substring(json.IndexOf(':', json.IndexOf("currentBuilding")) + 1);
+		if(json.StartsWith("null"))
 		{
 			this.CurrentBuilding = null;
 			this.isFree = true;
@@ -185,7 +191,7 @@ public class Tile : MonoBehaviour
 			int id = -1;
 			try
 			{
-				id = int.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - 1));
+				id = Int32.Parse(json.Substring(json.IndexOf(":") + 1, json.IndexOf(",") - json.IndexOf(":") + 1));
 			}
 			catch(Exception e)
 			{
