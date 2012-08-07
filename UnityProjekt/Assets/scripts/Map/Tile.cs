@@ -73,7 +73,8 @@ public class Tile : MonoBehaviour
 		{
 			if (polluteItself)
 				pollution = value;
-			psys.emissionRate = pollution * maxEmissionRate;
+			if (psys != null)
+				psys.emissionRate = pollution * maxEmissionRate;
 		}
 	}
 
@@ -97,6 +98,7 @@ public class Tile : MonoBehaviour
 		this.gameManager = gamemanagerObject.GetComponent<GameManager>();
 
 		psys = gameObject.GetComponent<ParticleSystem>();
+		psys.enableEmission = false;
 		
 	}
 	
